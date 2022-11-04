@@ -1,3 +1,8 @@
+
+
+import {createImportProcessor} from "./processor.ts/index.js"
+
+
 /**
  * 输入路径
  * @remarks
@@ -11,3 +16,19 @@ export const input =  "../src"
  * 文本文件的字符编码
  */
 export const encoding = "utf-8"
+
+
+
+
+
+
+
+/**
+ * cesium 导入方式替换
+ */
+const cesiumProcessor = createImportProcessor("Cesium","cesium");
+
+/**
+ * 处理器列表
+ */
+export const processors  = [cesiumProcessor]

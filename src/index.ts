@@ -17,14 +17,9 @@
  const configPath = process.argv[2];
 
 
-import {processTextFiles} from "./processTextFiles.mjs"
- import {createRewriter} from "./processor.mjs"
- import {cesiumReplacer} from "./replacer.mjs"
- 
+import {fileProcessor} from "./file-processor"
  const config = await import(configPath)
- 
-
- processTextFiles(createRewriter(cesiumReplacer),config)
+ fileProcessor(config)
  
  
  

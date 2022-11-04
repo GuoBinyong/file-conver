@@ -4,7 +4,7 @@
   "description": "file-processor 称为 库构建模板，又称 公共代码构建模板 ，是专门用于构建 公共代码（如：封装的库、工具等） 的 vite 配置模板，当需要开发和构建公共代码时，直接克隆本项目即可，并默认在的 src 目录下开发即可；",
   "main": "./dist/file-processor.umd.js",
   "module": "./dist/file-processor.mjs",
-  "exports":{
+  "exports": {
     "import": "./dist/file-processor.mjs",
     "require": "./dist/file-processor.umd.js"
   },
@@ -51,6 +51,7 @@
   "devDependencies": {
     "@microsoft/api-documenter": "^7.17.15",
     "@microsoft/api-extractor": "^7.24.1",
+    "@types/node": "^18.11.9",
     "build-tls": "^1.3.11",
     "dts-bundle-generator": "^6.12.0",
     "package-tls": "^1.3.1",

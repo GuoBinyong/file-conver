@@ -1,11 +1,11 @@
-import {readdir, stat ,readFile,writeFile} from "node:fs/promises"
+import {readdir, stat } from "node:fs/promises"
 import { join } from "node:path"
 
 /**
  * 获取路径 path 下的所有文件的路径
  * @param path 
  */
-export async function* getAllFiles(path) {
+export async function* getAllFiles(path:string) {
 
     const inputStats = await stat(path)
 
@@ -24,7 +24,7 @@ export async function* getAllFiles(path) {
  * 获取目录 path 下的所有文件的路径
  * @param path 
  */
-export async function* getAllFilesOfDir(path) {
+export async function* getAllFilesOfDir(path:string):AsyncGenerator<string> {
     const dirents = await readdir(path,{withFileTypes:true})
 
     for (const dirent of dirents) {
@@ -37,17 +37,3 @@ export async function* getAllFilesOfDir(path) {
     }
 }
 
-
-
-/**
- * 重写文本文件
- * @param {*} path 
- * @param {*} replacer 
- * @param {*} encoding 
- */
-export async function rewriteTextFile(path,replacer,encoding){
-    encoding = encoding ?? "utf8";
-    const text = await readFile(path, {encoding});
-    const result = replacer(text)
-    return writeFile(path,result, { encoding });
-}
