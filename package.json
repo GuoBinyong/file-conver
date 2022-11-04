@@ -10,7 +10,7 @@
   },
   "types": "dist/index.d.ts",
   "bin": {
-    "fileproc": "./dist/fileconver.mjs"
+    "fileconver": "./dist/fileconver.mjs"
   },
   "sideEffects": false,
   "homepage": "https://github.com/GuoBinyong/file-conver#readme",
