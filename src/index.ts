@@ -18,8 +18,11 @@
 
 
 import {fileProcessor} from "./file-processor"
- const config = await import(configPath)
- fileProcessor(config)
+
+import(configPath).then((config)=>{
+    fileProcessor(config)
+ })
+
  
  
  

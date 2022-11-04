@@ -27,14 +27,14 @@ export function createImportProcessor(objName:string, importPath:string):FilePro
     return function importReplacer(preProcessResult) {
 
         const fileInfo = preProcessResult[0];
-        const {context} = fileInfo;
+        const {content} = fileInfo;
 
         // const cesiumRE = /(?<=\s)objName\.(\w+)\b(?!\s*=[^=])/g ;
         const objNameRE = new RegExp(`(?<=\\s)${objName}\\.(\\w+)\\b(?!\\s*=[^=])`, "g");
 
         const memberSet = new Set();
 
-        let result = context.replaceAll(objNameRE, function (match, member) {
+        let result = content.replaceAll(objNameRE, function (match, member) {
             memberSet.add(member)
             return member
         });
@@ -49,7 +49,7 @@ ${result}`;
         }
 
         const finalResult = preProcessResult.slice(1)
-        finalResult.unshift({...fileInfo,context:result});
+        finalResult.unshift({...fileInfo,content:result});
         return finalResult;
     }
 }
