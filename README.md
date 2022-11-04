@@ -1,11 +1,11 @@
 [教程]: ./doc/教程.md
 [API接口文档]: ./doc/api/index.md
 
-[GitHub仓库]: https://github.com/GuoBinyong/script-tools
-[发行地址]: https://github.com/GuoBinyong/script-tools/releases
-[issues]: https://github.com/GuoBinyong/script-tools/issues
+[GitHub仓库]: https://github.com/GuoBinyong/file-processor
+[发行地址]: https://github.com/GuoBinyong/file-processor/releases
+[issues]: https://github.com/GuoBinyong/file-processor/issues
 
-[码云仓库]: https://gitee.com/guobinyong/script-tools
+[码云仓库]: https://gitee.com/guobinyong/file-processor
 
 
 
@@ -32,7 +32,7 @@
 - 特性3
 
 **详情请看：**  
-- 主页：<https://github.com/GuoBinyong/script-tools>
+- 主页：<https://github.com/GuoBinyong/file-processor>
 - [GitHub仓库][]
 - [码云仓库][]
 - [教程][]
@@ -57,19 +57,19 @@
 ## 3.1. 方式1：通过 npm 安装
 通过 npm （或 yarn、pnpm 等包管理器）安装
 ```
-npm install script-tools
+npm install file-processor
 ```
 
 
 
 
 ## 3.2. 方式3：通过`<script>`标签引入
-您可直接从项目的 [发行地址][] 中下载以 `.iife.js` 作为缀的文件，然后使用如下代码引用 和 使用 script-tools：
+您可直接从项目的 [发行地址][] 中下载以 `.iife.js` 作为缀的文件，然后使用如下代码引用 和 使用 file-processor：
 
 
-1. 引用 script-tools
+1. 引用 file-processor
    ```
-   <script src="path/to/package/script-tools.iife.js"></script>
+   <script src="path/to/package/file-processor.iife.js"></script>
    ```
    
 2. 使用全局的 `LibraryViteTemplate`

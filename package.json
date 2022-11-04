@@ -1,22 +1,22 @@
 {
-  "name": "script-tools",
+  "name": "file-processor",
   "version": "0.0.0",
-  "description": "script-tools 称为 库构建模板，又称 公共代码构建模板 ，是专门用于构建 公共代码（如：封装的库、工具等） 的 vite 配置模板，当需要开发和构建公共代码时，直接克隆本项目即可，并默认在的 src 目录下开发即可；",
-  "main": "./dist/script-tools.umd.js",
-  "module": "./dist/script-tools.mjs",
+  "description": "file-processor 称为 库构建模板，又称 公共代码构建模板 ，是专门用于构建 公共代码（如：封装的库、工具等） 的 vite 配置模板，当需要开发和构建公共代码时，直接克隆本项目即可，并默认在的 src 目录下开发即可；",
+  "main": "./dist/file-processor.umd.js",
+  "module": "./dist/file-processor.mjs",
   "exports":{
-    "import": "./dist/script-tools.mjs",
-    "require": "./dist/script-tools.umd.js"
+    "import": "./dist/file-processor.mjs",
+    "require": "./dist/file-processor.umd.js"
   },
   "types": "dist/index.d.ts",
   "sideEffects": false,
-  "homepage": "https://github.com/GuoBinyong/script-tools#readme",
+  "homepage": "https://github.com/GuoBinyong/file-processor#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/GuoBinyong/script-tools"
+    "url": "https://github.com/GuoBinyong/file-processor"
   },
   "bugs": {
-    "url": "https://github.com/GuoBinyong/script-tools/issues",
+    "url": "https://github.com/GuoBinyong/file-processor/issues",
     "email": "guobinyong@qq.com"
   },
   "keywords": [
