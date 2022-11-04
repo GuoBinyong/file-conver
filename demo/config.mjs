@@ -9,7 +9,7 @@ import {createImportProcessor} from "./processor.ts/index.js"
  * 可以是目录，也可以是文件
  * 是绝对路径 或是 相对于 脚本入口文件的相对路径
  */
-export const input =  "../src"
+export const input =  "./input"
 
 
 /**
