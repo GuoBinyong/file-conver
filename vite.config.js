@@ -11,8 +11,8 @@ import dts from 'vite-plugin-dts'
 // 手动配置
 const entry = 'src/index.ts';   // 输入（入口）文件
 //所需构建的模块格式
-const formats_ExcludeDep = ['es', 'umd'];  //要排除依赖包的模块格式
-const formats_IncludeDep = ['iife'];  //要包含依赖包的模块格式
+const formats_ExcludeDep = ['es', 'cjs'];  //要排除依赖包的模块格式
+const formats_IncludeDep = [];  //要包含依赖包的模块格式
 
 // 类型声明文件构建选项
 const dtsOpts = {
@@ -61,7 +61,15 @@ const config = {
     build:{
         lib: {
             name:pkgName, 
-            entry: entry,
+            /**
+             * https://rollupjs.org/guide/en/#input
+             * @type `string | string [] | { [entryName: string]: string }`
+             * 当指定多个入口文件时，最终的构建产物包含两类文件块：
+             *  + 这些入口之间所共享的 代码块，称为 共享块
+             *  + 每个入口文件对应一个单独的 文件块，称为入口块，入口块 中会引入 共享块。当 `input` 是数组 `string []` 类型时，入口块的名字 与入口文字的名字一个，当 `input` 是对象类型 `{ [entryName: string]: string }` 时，入口块的名字 是对应的 `entryName`。
+             */
+            entry: [entry,"src/fileproc.ts"],
+            formats:formats_ExcludeDep,
         },
         outDir:outDir,
         rollupOptions:{

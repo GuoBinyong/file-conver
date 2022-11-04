@@ -1,14 +1,17 @@
 {
   "name": "file-processor",
   "version": "0.0.0",
-  "description": "file-processor 称为 库构建模板，又称 公共代码构建模板 ，是专门用于构建 公共代码（如：封装的库、工具等） 的 vite 配置模板，当需要开发和构建公共代码时，直接克隆本项目即可，并默认在的 src 目录下开发即可；",
-  "main": "./dist/file-processor.umd.js",
-  "module": "./dist/file-processor.mjs",
+  "description": "file-processor 用于批量处理文件，可自定义处理逻辑",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "exports": {
-    "import": "./dist/file-processor.mjs",
-    "require": "./dist/file-processor.umd.js"
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js"
   },
   "types": "dist/index.d.ts",
+  "bin": {
+    "fileproc":"./dist/fileproc.mjs"
+  },
   "sideEffects": false,
   "homepage": "https://github.com/GuoBinyong/file-processor#readme",
   "repository": {
@@ -20,12 +23,9 @@
     "email": "guobinyong@qq.com"
   },
   "keywords": [
-    "前端库",
-    "web库",
-    "library",
-    "vite",
-    "vite 模板",
-    "公共代码"
+    "file process",
+    "文件处理",
+    "文本处理"
   ],
   "author": {
     "name": "郭斌勇",
