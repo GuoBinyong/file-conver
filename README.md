@@ -1,11 +1,11 @@
 [教程]: ./doc/教程.md
 [API接口文档]: ./doc/api/index.md
 
-[GitHub仓库]: https://github.com/GuoBinyong/file-processor
-[发行地址]: https://github.com/GuoBinyong/file-processor/releases
-[issues]: https://github.com/GuoBinyong/file-processor/issues
+[GitHub仓库]: https://github.com/GuoBinyong/file-conver
+[发行地址]: https://github.com/GuoBinyong/file-conver/releases
+[issues]: https://github.com/GuoBinyong/file-conver/issues
 
-[码云仓库]: https://gitee.com/guobinyong/file-processor
+[码云仓库]: https://gitee.com/guobinyong/file-conver
 
 
 
@@ -34,7 +34,7 @@
 
 所以，为了方便没有 Node 经验的同学能够快速实现自己的处理脚本，所以本工具就诞生了。
 # 2. 简介
-file-processor 用于批量处理文件，可自定义处理逻辑。它提供了遍历文件、读取文件 和 写入文件 的能力，提供了链式的自定义处理器逻辑，可以让用户方便的自定义 和 拆分 处理逻辑。并且支持一个文件转换成多个文件的机制。
+file-conver 用于批量处理文件，可自定义处理逻辑。它提供了遍历文件、读取文件 和 写入文件 的能力，提供了链式的自定义处理器逻辑，可以让用户方便的自定义 和 拆分 处理逻辑。并且支持一个文件转换成多个文件的机制。
 
 **具有以下特性：**  
 - 批量处理文件
@@ -44,7 +44,7 @@ file-processor 用于批量处理文件，可自定义处理逻辑。它提供�
 - 支持 JSAPI 调用
 
 **详情请看：**  
-- 主页：<https://github.com/GuoBinyong/file-processor>
+- 主页：<https://github.com/GuoBinyong/file-conver>
 - [GitHub仓库][]
 - [码云仓库][]
 - [教程][]
@@ -65,7 +65,7 @@ file-processor 用于批量处理文件，可自定义处理逻辑。它提供�
 # 3. 安装方式
 通过 npm （或 yarn、pnpm 等包管理器）安装
 ```
-npm install file-processor
+npm install file-conver
 ```
 
 

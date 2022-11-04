@@ -1,7 +1,7 @@
 {
-  "name": "file-processor",
+  "name": "file-conver",
   "version": "0.0.0",
-  "description": "file-processor 用于批量处理文件，可自定义处理逻辑",
+  "description": "file-conver 用于批量处理文件，可自定义处理逻辑",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "exports": {
@@ -10,16 +10,16 @@
   },
   "types": "dist/index.d.ts",
   "bin": {
-    "fileproc":"./dist/fileproc.mjs"
+    "fileproc": "./dist/fileconver.mjs"
   },
   "sideEffects": false,
-  "homepage": "https://github.com/GuoBinyong/file-processor#readme",
+  "homepage": "https://github.com/GuoBinyong/file-conver#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/GuoBinyong/file-processor"
+    "url": "https://github.com/GuoBinyong/file-conver"
   },
   "bugs": {
-    "url": "https://github.com/GuoBinyong/file-processor/issues",
+    "url": "https://github.com/GuoBinyong/file-conver/issues",
     "email": "guobinyong@qq.com"
   },
   "keywords": [
