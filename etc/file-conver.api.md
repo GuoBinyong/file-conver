@@ -37,7 +37,7 @@ export interface FileMeta {
 }
 
 // @public
-export function fileReadWrite(fileMeta: FileMeta, convers: FileConver[], config: FileConverConfig): Promise<void>;
+export function fileReadWrite(fileMeta: FileMeta, convers: FileConver[], config: Required<FileConverConfig>): Promise<void>;
 
 // @public
 export type FileWriteInfo = Partial<FileMeta> & Pick<FileInfo, "content">;
@@ -47,6 +47,9 @@ export function getAllFiles(path: string): AsyncGenerator<string, void, unknown>
 
 // @public
 export function getAllFilesOfDir(path: string): AsyncGenerator<string>;
+
+// @public
+export function getJoinPath(baseUrl: string | URL, path: string): string;
 
 // (No @packageDocumentation comment for this package)
 

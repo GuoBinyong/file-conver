@@ -13,6 +13,7 @@
 |  [fileReadWrite(fileMeta, convers, config)](./file-conver.filereadwrite.md) | 文件读写 |
 |  [getAllFiles(path)](./file-conver.getallfiles.md) | 获取路径 path 下的所有文件的路径 |
 |  [getAllFilesOfDir(path)](./file-conver.getallfilesofdir.md) | 获取目录 path 下的所有文件的路径 |
+|  [getJoinPath(baseUrl, path)](./file-conver.getjoinpath.md) | 获取路径 |
 
 ## Interfaces
 

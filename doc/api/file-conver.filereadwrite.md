@@ -9,7 +9,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function fileReadWrite(fileMeta: FileMeta, convers: FileConver[], config: FileConverConfig): Promise<void>;
+export declare function fileReadWrite(fileMeta: FileMeta, convers: FileConver[], config: Required<FileConverConfig>): Promise<void>;
 ```
 
 ## Parameters
@@ -18,7 +18,7 @@ export declare function fileReadWrite(fileMeta: FileMeta, convers: FileConver[],
 |  --- | --- | --- |
 |  fileMeta | [FileMeta](./file-conver.filemeta.md) |  |
 |  convers | [FileConver](./file-conver.fileconver.md)<!-- -->\[\] |  |
-|  config | [FileConverConfig](./file-conver.fileconverconfig.md) |  |
+|  config | Required&lt;[FileConverConfig](./file-conver.fileconverconfig.md)<!-- -->&gt; |  |
 
 <b>Returns:</b>
 
