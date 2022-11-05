@@ -33,9 +33,10 @@ export interface FileConverConfig {
  * @param config 
  */
 export async function fileConver(config: FileConverConfig) {
-    const { input, encoding, convers } = config;
+    const { input,output, encoding, convers } = config;
+    const finalConfig = {...config, input, encoding: encoding ?? "utf8", convers,output:output ?? input}
 
-    const files = getAllFiles(input)
+    const files = getAllFiles(input);
     for await (const path of files) {
         const filePath = relative(input, path);
 
@@ -43,7 +44,7 @@ export async function fileConver(config: FileConverConfig) {
             root: input,
             path: filePath,
             encoding,
-        }, convers, config)
+        }, convers, finalConfig)
     }
 }
 
@@ -106,20 +107,22 @@ export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, 
  * @param convers 
  * @param config 
  */
-export async function fileReadWrite(fileMeta: FileMeta, convers: FileConver[], config: FileConverConfig) {
-    const { path, root, encoding = "utf8" } = fileMeta;
+export async function fileReadWrite(fileMeta: FileMeta, convers: FileConver[], config: Required<FileConverConfig>) {
+    const { path, root, encoding } = fileMeta;
+    const output = config.output!;
+
     const inputPath = join(root, path);
-    const content = await readFile(inputPath, { encoding });
+    const content = (await readFile(inputPath, { encoding })) as string;
     const inputFileInfo: FileInfo = { ...fileMeta, content, encoding };
 
     const result = convers.reduce((preResult: FileWriteInfo[], conver) => {
         const result = conver(preResult, inputFileInfo, config);
         return result ? (Array.isArray(result) ? result : [result]) : [];
-    }, [{ ...inputFileInfo }]);
+    }, [{ ...inputFileInfo,root:output }]);
 
     for (const info of result) {
         let { root: wRoot, path: wPath, content: wContent, encoding: wEncoding = encoding } = info;
-        const outPath = join(wRoot ?? root, wPath ?? path);
+        const outPath = join(wRoot ?? output, wPath ?? path);
         const outDir = dirname(outPath);
         if (!existsSync(outDir)){
             mkdirSync(outDir,{recursive:true})
