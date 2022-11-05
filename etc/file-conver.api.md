@@ -5,7 +5,24 @@
 ```ts
 
 // @public
-export function createImportProcessor(objName: string, importPath: string): FileProcessor;
+export type ConverResult = FileWriteInfo[] | FileWriteInfo | null | undefined;
+
+// @public
+export function createImportConver(objName: string, importPath: string): FileConver;
+
+// @public
+export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, config: FileConverConfig) => ConverResult;
+
+// @public
+export function fileConver(config: FileConverConfig): Promise<void>;
+
+// @public
+export interface FileConverConfig {
+    convers: FileConver[];
+    encoding?: BufferEncoding;
+    input: string;
+    output?: string | null;
+}
 
 // @public
 export interface FileInfo extends FileMeta {
@@ -20,21 +37,7 @@ export interface FileMeta {
 }
 
 // @public
-export type FileProcessor = (preProcessResult: FileWriteInfo[], fileInfo: FileInfo, config: FileProcessorConfig) => ProcessResult;
-
-// @public
-export function fileProcessor(config: FileProcessorConfig): Promise<void>;
-
-// @public
-export interface FileProcessorConfig {
-    encoding?: BufferEncoding;
-    input: string;
-    output?: string | null;
-    processors: FileProcessor[];
-}
-
-// @public
-export function fileReadWrite(fileMeta: FileMeta, processors: FileProcessor[], config: FileProcessorConfig): Promise<void>;
+export function fileReadWrite(fileMeta: FileMeta, convers: FileConver[], config: FileConverConfig): Promise<void>;
 
 // @public
 export type FileWriteInfo = Partial<FileMeta> & Pick<FileInfo, "content">;
@@ -44,9 +47,6 @@ export function getAllFiles(path: string): AsyncGenerator<string, void, unknown>
 
 // @public
 export function getAllFilesOfDir(path: string): AsyncGenerator<string>;
-
-// @public
-export type ProcessResult = FileWriteInfo[] | FileWriteInfo | null | undefined;
 
 // (No @packageDocumentation comment for this package)
 
