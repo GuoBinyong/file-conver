@@ -1,6 +1,7 @@
 
 import { readFile, writeFile } from "node:fs/promises"
-import { join, relative } from "node:path"
+import { existsSync,mkdirSync } from "node:fs"
+import { join, relative,dirname } from "node:path"
 import { getAllFiles } from "./fs-tools.js"
 
 
@@ -119,6 +120,10 @@ export async function fileReadWrite(fileMeta: FileMeta, convers: FileConver[], c
     for (const info of result) {
         let { root: wRoot, path: wPath, content: wContent, encoding: wEncoding = encoding } = info;
         const outPath = join(wRoot ?? root, wPath ?? path);
+        const outDir = dirname(outPath);
+        if (!existsSync(outDir)){
+            mkdirSync(outDir,{recursive:true})
+        }
         writeFile(outPath, wContent, { encoding: wEncoding });
     }
 
