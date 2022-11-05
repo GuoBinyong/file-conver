@@ -4,6 +4,8 @@
 
 ```ts
 
+import { Mode } from 'node:fs';
+
 // @public
 export type ConverResult = FileWriteInfo[] | FileWriteInfo | null | undefined;
 
@@ -21,6 +23,8 @@ export interface FileConverConfig {
     convers: FileConver[];
     encoding?: BufferEncoding;
     input: string;
+    outEncoding?: BufferEncoding | null;
+    outMode?: Mode | null;
     output?: string | null;
 }
 
@@ -31,13 +35,14 @@ export interface FileInfo extends FileMeta {
 
 // @public
 export interface FileMeta {
-    encoding?: BufferEncoding;
+    encoding?: BufferEncoding | null;
+    mode?: Mode | null;
     path: string;
     root: string;
 }
 
 // @public
-export function fileReadWrite(fileMeta: FileMeta, convers: FileConver[], config: Required<FileConverConfig>): Promise<void>;
+export function fileReadWrite(fileMeta: FileMeta, config: RequiredFileConverConfig): Promise<void>;
 
 // @public
 export type FileWriteInfo = Partial<FileMeta> & Pick<FileInfo, "content">;
@@ -50,6 +55,13 @@ export function getAllFilesOfDir(path: string): AsyncGenerator<string>;
 
 // @public
 export function getJoinPath(baseUrl: string | URL, path: string): string;
+
+// @public
+export type RequiredFileConverConfig = {
+    [K in Exclude<keyof FileConverConfig, "outMode">]: NonNullable<FileConverConfig[K]>;
+} & {
+    outMode?: Mode;
+};
 
 // (No @packageDocumentation comment for this package)
 

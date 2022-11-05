@@ -10,7 +10,7 @@
 |  --- | --- |
 |  [createImportConver(objName, importPath)](./file-conver.createimportconver.md) | 创建替换者，用于将模块成员的使用方式改成 成员导入的使用方式 |
 |  [fileConver(config)](./file-conver.fileconver.md) | 批量处理文件 |
-|  [fileReadWrite(fileMeta, convers, config)](./file-conver.filereadwrite.md) | 文件读写 |
+|  [fileReadWrite(fileMeta, config)](./file-conver.filereadwrite.md) | 文件读写 |
 |  [getAllFiles(path)](./file-conver.getallfiles.md) | 获取路径 path 下的所有文件的路径 |
 |  [getAllFilesOfDir(path)](./file-conver.getallfilesofdir.md) | 获取目录 path 下的所有文件的路径 |
 |  [getJoinPath(baseUrl, path)](./file-conver.getjoinpath.md) | 获取路径 |
@@ -30,4 +30,5 @@
 |  [ConverResult](./file-conver.converresult.md) | 处理结果 |
 |  [FileConver](./file-conver.fileconver.md) | 文件转换器 |
 |  [FileWriteInfo](./file-conver.filewriteinfo.md) | 文件写入选项 |
+|  [RequiredFileConverConfig](./file-conver.requiredfileconverconfig.md) | 文件转换器的配置项的必须版本 |
 

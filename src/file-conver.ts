@@ -1,7 +1,7 @@
 
 import { readFile, writeFile } from "node:fs/promises"
-import { existsSync,mkdirSync } from "node:fs"
-import { join, relative,dirname } from "node:path"
+import { existsSync, mkdirSync, Mode } from "node:fs"
+import { join, relative, dirname } from "node:path"
 import { getAllFiles } from "./fs-tools.js"
 
 
@@ -14,13 +14,31 @@ export interface FileConverConfig {
      */
     input: string;
     /**
-     * 输出路径
-     */
-    output?: string | null;
-    /**
      * 输入文件的字符编码
      */
     encoding?: BufferEncoding;
+
+    /**
+     * 输出路径
+     * 
+     * @defaultValue 入口路径 input
+     */
+    output?: string | null;
+
+    /**
+     * 输出文件的字符编码
+     * @defaultValue 输入文件的字符编码 encoding
+     */
+    outEncoding?: BufferEncoding | null;
+
+    /**
+     * 输出文件的模式（权限）
+     * @remarks
+     * 模式选项仅影响新创建的文件。请参阅 fs.open（） 了解更多详情。
+     * @defaultValue 0o666
+     */
+    outMode?: Mode | null
+
     /**
      * 转换器列表
      */
@@ -33,8 +51,9 @@ export interface FileConverConfig {
  * @param config 
  */
 export async function fileConver(config: FileConverConfig) {
-    const { input,output, encoding, convers } = config;
-    const finalConfig = {...config, input, encoding: encoding ?? "utf8", convers,output:output ?? input}
+    const { input, encoding, output, outEncoding,outMode } = config;
+    const inEncoding = encoding ?? "utf8";
+    const finalConfig = { ...config, input, encoding: inEncoding, output: output ?? input, outEncoding: outEncoding ?? inEncoding,outMode:outMode ?? undefined };
 
     const files = getAllFiles(input);
     for await (const path of files) {
@@ -43,8 +62,8 @@ export async function fileConver(config: FileConverConfig) {
         fileReadWrite({
             root: input,
             path: filePath,
-            encoding,
-        }, convers, finalConfig)
+            encoding: inEncoding,
+        }, finalConfig)
     }
 }
 
@@ -69,7 +88,15 @@ export interface FileMeta {
      * 文件的字符编码
      * @defaultValue  "utf8"
      */
-    encoding?: BufferEncoding
+    encoding?: BufferEncoding|null;
+
+    /**
+     * 输出文件的模式（权限）
+     * @remarks
+     * 模式选项仅影响新创建的文件。请参阅 fs.open（） 了解更多详情。
+     * @defaultValue 0o666
+     */
+    mode?: Mode | null;
 }
 
 
@@ -100,6 +127,12 @@ export type ConverResult = FileWriteInfo[] | FileWriteInfo | null | undefined;
 export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, config: FileConverConfig) => ConverResult;
 
 
+/**
+ * 文件转换器的配置项的必须版本
+ */
+export type RequiredFileConverConfig = {
+    [K in Exclude<keyof FileConverConfig, "outMode">]: NonNullable<FileConverConfig[K]>
+} & { outMode?: Mode };
 
 /**
  * 文件读写
@@ -107,27 +140,31 @@ export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, 
  * @param convers 
  * @param config 
  */
-export async function fileReadWrite(fileMeta: FileMeta, convers: FileConver[], config: Required<FileConverConfig>) {
+export async function fileReadWrite(fileMeta: FileMeta, config: RequiredFileConverConfig) {
     const { path, root, encoding } = fileMeta;
-    const output = config.output!;
+    const { output, outEncoding, outMode, convers } = config;
 
     const inputPath = join(root, path);
     const content = (await readFile(inputPath, { encoding })) as string;
-    const inputFileInfo: FileInfo = { ...fileMeta, content, encoding };
+    const inputFileInfo: FileInfo = { ...fileMeta, content };
 
     const result = convers.reduce((preResult: FileWriteInfo[], conver) => {
         const result = conver(preResult, inputFileInfo, config);
         return result ? (Array.isArray(result) ? result : [result]) : [];
-    }, [{ ...inputFileInfo,root:output }]);
+    }, [{ ...inputFileInfo, root: output, encoding: outEncoding ,mode:outMode }]);
 
     for (const info of result) {
-        let { root: wRoot, path: wPath, content: wContent, encoding: wEncoding = encoding } = info;
-        const outPath = join(wRoot ?? output, wPath ?? path);
+        let { root: wRoot, path: wPath, content: wContent, encoding: wEncoding,mode:wModel } = info;
+        wRoot = wRoot ?? output;
+        wPath = wPath ?? path;
+        wEncoding = wEncoding ?? outEncoding;
+        wModel = wModel ?? outMode;
+        const outPath = join(wRoot, wPath);
         const outDir = dirname(outPath);
-        if (!existsSync(outDir)){
-            mkdirSync(outDir,{recursive:true})
+        if (!existsSync(outDir)) {
+            mkdirSync(outDir, { recursive: true })
         }
-        writeFile(outPath, wContent, { encoding: wEncoding });
+        writeFile(outPath, wContent, { encoding: wEncoding,mode:wModel});
     }
 
 }

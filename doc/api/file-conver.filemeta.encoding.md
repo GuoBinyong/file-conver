@@ -9,5 +9,5 @@
 <b>Signature:</b>
 
 ```typescript
-encoding?: BufferEncoding;
+encoding?: BufferEncoding | null;
 ```
