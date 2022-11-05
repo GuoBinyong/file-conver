@@ -5,9 +5,9 @@ import { getAllFiles } from "./fs-tools.js"
 
 
 /**
- * 文件处理器的配置项
+ * 文件转换器的配置项
  */
-export interface FileProcessorConfig {
+export interface FileConverConfig {
     /**
      * 入口路径
      */
@@ -21,9 +21,9 @@ export interface FileProcessorConfig {
      */
     encoding?: BufferEncoding;
     /**
-     * 处理器列表
+     * 转换器列表
      */
-    processors: FileProcessor[]
+    convers: FileConver[]
 }
 
 
@@ -31,8 +31,8 @@ export interface FileProcessorConfig {
  * 批量处理文件
  * @param config 
  */
-export async function fileProcessor(config: FileProcessorConfig) {
-    const { input, encoding, processors } = config;
+export async function fileConver(config: FileConverConfig) {
+    const { input, encoding, convers } = config;
 
     const files = getAllFiles(input)
     for await (const path of files) {
@@ -42,7 +42,7 @@ export async function fileProcessor(config: FileProcessorConfig) {
             root: input,
             path: filePath,
             encoding,
-        }, processors, config)
+        }, convers, config)
     }
 }
 
@@ -90,29 +90,29 @@ export type FileWriteInfo = Partial<FileMeta> & Pick<FileInfo, "content">
 /**
  * 处理结果
  */
-export type ProcessResult = FileWriteInfo[] | FileWriteInfo | null | undefined;
+export type ConverResult = FileWriteInfo[] | FileWriteInfo | null | undefined;
 
 /**
- * 文件处理器
+ * 文件转换器
  */
-export type FileProcessor = (preProcessResult: FileWriteInfo[], fileInfo: FileInfo, config: FileProcessorConfig) => ProcessResult;
+export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, config: FileConverConfig) => ConverResult;
 
 
 
 /**
  * 文件读写
  * @param fileMeta 
- * @param processors 
+ * @param convers 
  * @param config 
  */
-export async function fileReadWrite(fileMeta: FileMeta, processors: FileProcessor[], config: FileProcessorConfig) {
+export async function fileReadWrite(fileMeta: FileMeta, convers: FileConver[], config: FileConverConfig) {
     const { path, root, encoding = "utf8" } = fileMeta;
     const inputPath = join(root, path);
     const content = await readFile(inputPath, { encoding });
     const inputFileInfo: FileInfo = { ...fileMeta, content, encoding };
 
-    const result = processors.reduce((preResult: FileWriteInfo[], processor) => {
-        const result = processor(preResult, inputFileInfo, config);
+    const result = convers.reduce((preResult: FileWriteInfo[], conver) => {
+        const result = conver(preResult, inputFileInfo, config);
         return result ? (Array.isArray(result) ? result : [result]) : [];
     }, [{ ...inputFileInfo }]);
 

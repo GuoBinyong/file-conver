@@ -1,6 +1,6 @@
 
 
-import {createImportProcessor} from "../dist/index.mjs"
+import {createImportConver} from "../dist/index.mjs"
 
 
 /**
@@ -26,9 +26,9 @@ export const encoding = "utf-8"
 /**
  * cesium 导入方式替换
  */
-const cesiumProcessor = createImportProcessor("Cesium","cesium");
+const cesiumConver = createImportConver("Cesium","cesium");
 
 /**
- * 处理器列表
+ * 转换器列表
  */
-export const processors  = [cesiumProcessor]
+export const convers  = [cesiumConver]

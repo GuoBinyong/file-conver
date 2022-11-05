@@ -1,12 +1,12 @@
 
-import {FileProcessor} from "./file-processor"
+import {FileConver} from "./file-conver"
 
 
 /**
  * 创建替换者，用于将模块成员的使用方式改成 成员导入的使用方式
  * @example
  * ```js
- * createImportProcessor("Cesium","cesium")
+ * createImportConver("Cesium","cesium")
  * ```
  * 会将下面的代码
  * ```js
@@ -20,9 +20,9 @@ import {FileProcessor} from "./file-processor"
  * 
  * @param objName - 模块名字
  * @param importPath - 模块的导入路径
- * @returns 返回一个文件处理器
+ * @returns 返回一个文件转换器
  */
-export function createImportProcessor(objName:string, importPath:string):FileProcessor {
+export function createImportConver(objName:string, importPath:string):FileConver {
 
     return function importReplacer(preProcessResult) {
 

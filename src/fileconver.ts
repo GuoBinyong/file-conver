@@ -21,10 +21,10 @@
  const configPath = process.argv[2];
 
 
-import {fileProcessor} from "./file-processor"
+import {fileConver} from "./file-conver"
 
 import(configPath).then((config)=>{
-    fileProcessor(config)
+    fileConver(config)
  })
 
  
