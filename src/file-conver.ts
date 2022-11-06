@@ -159,6 +159,10 @@ export async function fileReadWrite(fileMeta: FileMeta, config: RequiredFileConv
         wPath = wPath ?? path;
         wEncoding = wEncoding ?? outEncoding;
         wModel = wModel ?? outMode;
+
+        if (wContent === content && wRoot === root && wPath === path && wEncoding === encoding && !wModel) continue;
+
+
         const outPath = join(wRoot, wPath);
         const outDir = dirname(outPath);
         if (!existsSync(outDir)) {

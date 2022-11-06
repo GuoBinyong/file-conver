@@ -30,9 +30,9 @@ export const output =  getJoinPath(import.meta.url,"../demo/output");
 /**
  * cesium 导入方式替换
  */
-const cesiumConver = createImportConver("Cesium","cesium");
+const cesiumImport_Conver = createImportConver("Cesium","cesium");
 
 /**
  * 转换器列表
  */
-export const convers  = [cesiumConver]
+export const convers  = [cesiumImport_Conver]

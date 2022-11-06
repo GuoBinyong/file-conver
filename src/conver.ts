@@ -26,11 +26,15 @@ export function createImportConver(objName:string, importPath:string):FileConver
 
     return function importReplacer(preProcessResult) {
 
-        const fileInfo = preProcessResult[0];
+        const fileInfo = preProcessResult.shift();
+        if (!fileInfo) return null;
+
         const {content} = fileInfo;
 
-        // const cesiumRE = /(?<=\s)objName\.(\w+)\b(?!\s*=[^=])/g ;
-        const objNameRE = new RegExp(`(?<=\\s)${objName}\\.(\\w+)\\b(?!\\s*=[^=])`, "g");
+        if (content == null) return null;
+
+        // const cesiumRE = /(?<=\s)objName\s*\.\s*(\w+)\b(?!\s*=[^=])/g ;
+        const objNameRE = new RegExp(`(?<=\\s)${objName}\\s*\\.\\s*(\\w+)\\b(?!\\s*=[^=])`, "g");
 
         const memberSet = new Set();
 
@@ -48,8 +52,7 @@ import {${importStr}} from "${importPath}";
 ${result}`;
         }
 
-        const finalResult = preProcessResult.slice(1)
-        finalResult.unshift({...fileInfo,content:result});
-        return finalResult;
+        preProcessResult.unshift({...fileInfo,content:result});
+        return preProcessResult;
     }
 }
