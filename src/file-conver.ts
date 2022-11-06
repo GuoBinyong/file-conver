@@ -120,7 +120,7 @@ export interface FileInfo extends FileMeta {
     /**
      * 文件的内容
      */
-    content: string | Buffer;
+    content: FileContent;
 
 }
 
@@ -138,6 +138,11 @@ export type ConverResult = FileWriteInfo[] | FileWriteInfo | null | undefined;
  * 文件转换器
  */
 export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, config: FileConverConfig) => ConverResult;
+
+/**
+ * 文件内容的类型
+ */
+ export type FileContent = string | Buffer;
 
 
 /**

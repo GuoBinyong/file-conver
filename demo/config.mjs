@@ -1,6 +1,6 @@
 
 
-import {createImportConver,getJoinPath} from "../dist/index.mjs"
+import {createConver,createESImportContentConver,getJoinPath} from "../dist/index.mjs"
 
 
 /**
@@ -30,9 +30,10 @@ export const output =  getJoinPath(import.meta.url,"../demo/output");
 /**
  * cesium 导入方式替换
  */
-const cesiumImport_Conver = createImportConver("Cesium","cesium");
+const import_ContentConver = createESImportContentConver("Cesium","cesium");
+const import_Conver = createConver(import_ContentConver);
 
 /**
  * 转换器列表
  */
-export const convers  = [cesiumImport_Conver]
+export const convers  = [import_Conver]

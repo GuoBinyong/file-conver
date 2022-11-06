@@ -8,7 +8,8 @@
 
 |  Function | Description |
 |  --- | --- |
-|  [createImportConver(objName, importPath)](./file-conver.createimportconver.md) | 创建替换者，用于将模块成员的使用方式改成 成员导入的使用方式 |
+|  [createConver(contentConver)](./file-conver.createconver.md) | 通过内容转换器生成创建文件转换器 |
+|  [createESImportContentConver(objName, importPath, type)](./file-conver.createesimportcontentconver.md) | 创建 用于将模块成员的使用方式改成 成员导入的使用方式 的内容转换器 |
 |  [fileConver(config)](./file-conver.fileconver.md) | 批量处理文件 |
 |  [fileReadWrite(fileMeta, config)](./file-conver.filereadwrite.md) | 文件读写 |
 |  [getAllFiles(path)](./file-conver.getallfiles.md) | 获取路径 path 下的所有文件的路径 |
@@ -27,7 +28,9 @@
 
 |  Type Alias | Description |
 |  --- | --- |
+|  [ContentConver](./file-conver.contentconver.md) | 内容转换器 |
 |  [ConverResult](./file-conver.converresult.md) | 处理结果 |
+|  [FileContent](./file-conver.filecontent.md) | 文件内容的类型 |
 |  [FileConver](./file-conver.fileconver.md) | 文件转换器 |
 |  [FileWriteInfo](./file-conver.filewriteinfo.md) | 文件写入选项 |
 |  [RequiredFileConverConfig](./file-conver.requiredfileconverconfig.md) | 文件转换器的配置项的必须版本 |

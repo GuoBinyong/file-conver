@@ -7,10 +7,19 @@
 import { Mode } from 'node:fs';
 
 // @public
+export type ContentConver<Content extends FileContent> = (content: Content) => Content | null | undefined;
+
+// @public
 export type ConverResult = FileWriteInfo[] | FileWriteInfo | null | undefined;
 
 // @public
-export function createImportConver(objName: string, importPath: string): FileConver;
+export function createConver<Content extends FileContent>(contentConver: ContentConver<Content>[] | ContentConver<Content>): FileConver;
+
+// @public
+export function createESImportContentConver(objName: string, importPath: string, type?: boolean): ContentConver<string>;
+
+// @public
+export type FileContent = string | Buffer;
 
 // @public
 export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, config: FileConverConfig) => ConverResult;
@@ -31,7 +40,7 @@ export interface FileConverConfig {
 
 // @public
 export interface FileInfo extends FileMeta {
-    content: string | Buffer;
+    content: FileContent;
 }
 
 // @public

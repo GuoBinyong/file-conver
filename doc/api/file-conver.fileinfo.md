@@ -17,5 +17,5 @@ export interface FileInfo extends FileMeta
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [content](./file-conver.fileinfo.content.md) |  | string \| Buffer | 文件的内容 |
+|  [content](./file-conver.fileinfo.content.md) |  | [FileContent](./file-conver.filecontent.md) | 文件的内容 |
 

@@ -1,58 +1,41 @@
 
-import {FileConver} from "./file-conver"
+import {FileConver,FileContent} from "./file-conver"
+
+
+
 
 
 /**
- * 创建替换者，用于将模块成员的使用方式改成 成员导入的使用方式
- * @example
- * ```js
- * createImportConver("Cesium","cesium")
- * ```
- * 会将下面的代码
- * ```js
- * new Cesium.Cartesian3();
- * ```
- * 修改成
- * ```js
- * import {Cartesian3} from "cesium"
- * new Cartesian3();
- * ```
- * 
- * @param objName - 模块名字
- * @param importPath - 模块的导入路径
- * @returns 返回一个文件转换器
+ * 内容转换器
+ * @param content - 输入的文件内容
+ * @returns 返回转换后的文件内容
  */
-export function createImportConver(objName:string, importPath:string):FileConver {
+export type ContentConver<Content extends FileContent> = (content: Content) => Content| null | undefined;
+ 
+/**
+ * 通过内容转换器生成创建文件转换器 
+ * @param contentConver - 一个 或 一组内容转换器
+ * @returns 文件转换器
+ */
+export function createConver<Content extends FileContent>(contentConver:ContentConver<Content>[]|ContentConver<Content>):FileConver {
+    const contentConvers = Array.isArray(contentConver) ? contentConver : [contentConver];
 
-    return function importReplacer(preProcessResult) {
+    return function conver(preProcessResult) {
 
         const fileInfo = preProcessResult.shift();
         if (!fileInfo) return null;
 
-        const content = fileInfo.content as string;
+        let content = fileInfo.content as Content | null | undefined;
 
         if (content == null) return null;
 
-        // const cesiumRE = /(?<=\s)objName\s*\.\s*(\w+)\b(?!\s*=[^=])/g ;
-        const objNameRE = new RegExp(`(?<=\\s)${objName}\\s*\\.\\s*(\\w+)\\b(?!\\s*=[^=])`, "g");
-
-        const memberSet = new Set();
-
-        let result = content.replaceAll(objNameRE, function (match, member) {
-            memberSet.add(member)
-            return member
-        });
-
-        if (memberSet.size>0){
-            const importStr = Array.from(memberSet).join(", ");
-
-            result = `
-import {${importStr}} from "${importPath}";
-
-${result}`;
+        for (const contConver of  contentConvers){
+            content = contConver(content);
+            if (content == null) return null;
         }
 
-        preProcessResult.unshift({...fileInfo,content:result});
+        preProcessResult.unshift({...fileInfo,content});
         return preProcessResult;
     }
 }
+
