@@ -37,12 +37,22 @@ export interface FileConverConfig {
      * 模式选项仅影响新创建的文件。请参阅 fs.open（） 了解更多详情。
      * @defaultValue 0o666
      */
-    outMode?: Mode | null
+    outMode?: Mode | null;
 
     /**
      * 转换器列表
      */
-    convers: FileConver[]
+    convers: FileConver[];
+
+    /**
+     * 是否输出内容没有变化的文件
+     * 
+     * @remarks
+     * 当值为 false 时，如果文件内容没有做任务转换，即使 输出路径、输出字符编码、输出文件模式 与原来的不同，也不会输出文件。
+     * 
+     * @defaultValue false
+     */
+    emitUnconverted?:boolean;
 }
 
 
@@ -131,8 +141,8 @@ export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, 
  * 文件转换器的配置项的必须版本
  */
 export type RequiredFileConverConfig = {
-    [K in Exclude<keyof FileConverConfig, "outMode">]: NonNullable<FileConverConfig[K]>
-} & { outMode?: Mode };
+    [K in Exclude<keyof FileConverConfig, "outMode"|"emitUnconverted">]: NonNullable<FileConverConfig[K]>
+} & { outMode?: Mode, emitUnconverted?:boolean};
 
 /**
  * 文件读写
@@ -142,7 +152,7 @@ export type RequiredFileConverConfig = {
  */
 export async function fileReadWrite(fileMeta: FileMeta, config: RequiredFileConverConfig) {
     const { path, root, encoding } = fileMeta;
-    const { output, outEncoding, outMode, convers } = config;
+    const { output, outEncoding, outMode, convers,emitUnconverted } = config;
 
     const inputPath = join(root, path);
     const content = (await readFile(inputPath, { encoding })) as string;
@@ -155,12 +165,15 @@ export async function fileReadWrite(fileMeta: FileMeta, config: RequiredFileConv
 
     for (const info of result) {
         let { root: wRoot, path: wPath, content: wContent, encoding: wEncoding,mode:wModel } = info;
+        const isUnconverted = wContent === content;
+        if (isUnconverted && !emitUnconverted) continue;
+
         wRoot = wRoot ?? output;
         wPath = wPath ?? path;
         wEncoding = wEncoding ?? outEncoding;
         wModel = wModel ?? outMode;
 
-        if (wContent === content && wRoot === root && wPath === path && wEncoding === encoding && !wModel) continue;
+        if (isUnconverted && wRoot === root && wPath === path && wEncoding === encoding && !wModel) continue;
 
 
         const outPath = join(wRoot, wPath);

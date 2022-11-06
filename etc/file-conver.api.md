@@ -21,6 +21,7 @@ export function fileConver(config: FileConverConfig): Promise<void>;
 // @public
 export interface FileConverConfig {
     convers: FileConver[];
+    emitUnconverted?: boolean;
     encoding?: BufferEncoding;
     input: string;
     outEncoding?: BufferEncoding | null;
@@ -58,9 +59,10 @@ export function getJoinPath(baseUrl: string | URL, path: string): string;
 
 // @public
 export type RequiredFileConverConfig = {
-    [K in Exclude<keyof FileConverConfig, "outMode">]: NonNullable<FileConverConfig[K]>;
+    [K in Exclude<keyof FileConverConfig, "outMode" | "emitUnconverted">]: NonNullable<FileConverConfig[K]>;
 } & {
     outMode?: Mode;
+    emitUnconverted?: boolean;
 };
 
 // (No @packageDocumentation comment for this package)

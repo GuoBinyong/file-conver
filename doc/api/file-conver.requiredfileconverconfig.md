@@ -10,9 +10,10 @@
 
 ```typescript
 export declare type RequiredFileConverConfig = {
-    [K in Exclude<keyof FileConverConfig, "outMode">]: NonNullable<FileConverConfig[K]>;
+    [K in Exclude<keyof FileConverConfig, "outMode" | "emitUnconverted">]: NonNullable<FileConverConfig[K]>;
 } & {
     outMode?: Mode;
+    emitUnconverted?: boolean;
 };
 ```
 <b>References:</b> [FileConverConfig](./file-conver.fileconverconfig.md)
