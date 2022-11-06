@@ -1,6 +1,6 @@
 {
   "name": "file-conver",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "file-conver 用于批量处理文件，可自定义处理逻辑",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
