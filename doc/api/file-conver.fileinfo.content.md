@@ -9,5 +9,5 @@
 <b>Signature:</b>
 
 ```typescript
-content: string;
+content: string | Buffer;
 ```

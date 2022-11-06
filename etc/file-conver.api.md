@@ -22,7 +22,7 @@ export function fileConver(config: FileConverConfig): Promise<void>;
 export interface FileConverConfig {
     convers: FileConver[];
     emitUnconverted?: boolean;
-    encoding?: BufferEncoding;
+    encoding?: BufferEncoding | null;
     input: string;
     outEncoding?: BufferEncoding | null;
     outMode?: Mode | null;
@@ -31,7 +31,7 @@ export interface FileConverConfig {
 
 // @public
 export interface FileInfo extends FileMeta {
-    content: string;
+    content: string | Buffer;
 }
 
 // @public
@@ -59,10 +59,9 @@ export function getJoinPath(baseUrl: string | URL, path: string): string;
 
 // @public
 export type RequiredFileConverConfig = {
-    [K in Exclude<keyof FileConverConfig, "outMode" | "emitUnconverted">]: NonNullable<FileConverConfig[K]>;
-} & {
+    [K in Exclude<keyof FileConverConfig, "outMode" | "emitUnconverted" | "encoding" | "outEncoding">]: NonNullable<FileConverConfig[K]>;
+} & Pick<FileConverConfig, "emitUnconverted" | "encoding" | "outEncoding"> & {
     outMode?: Mode;
-    emitUnconverted?: boolean;
 };
 
 // (No @packageDocumentation comment for this package)

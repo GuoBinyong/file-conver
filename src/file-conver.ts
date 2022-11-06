@@ -15,8 +15,11 @@ export interface FileConverConfig {
     input: string;
     /**
      * 输入文件的字符编码
+     * @remarks
+     * 当 encoding 为 null 时，文件的内容会读取为 Buffer 类型，否则会读取为 字符串
+     * @defaultValue "utf8"
      */
-    encoding?: BufferEncoding;
+    encoding?: BufferEncoding | null;
 
     /**
      * 输出路径
@@ -62,7 +65,7 @@ export interface FileConverConfig {
  */
 export async function fileConver(config: FileConverConfig) {
     const { input, encoding, output, outEncoding,outMode } = config;
-    const inEncoding = encoding ?? "utf8";
+    const inEncoding = encoding === undefined ? "utf8" : encoding;
     const finalConfig = { ...config, input, encoding: inEncoding, output: output ?? input, outEncoding: outEncoding ?? inEncoding,outMode:outMode ?? undefined };
 
     const files = getAllFiles(input);
@@ -117,7 +120,7 @@ export interface FileInfo extends FileMeta {
     /**
      * 文件的内容
      */
-    content: string;
+    content: string | Buffer;
 
 }
 
@@ -141,8 +144,8 @@ export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, 
  * 文件转换器的配置项的必须版本
  */
 export type RequiredFileConverConfig = {
-    [K in Exclude<keyof FileConverConfig, "outMode"|"emitUnconverted">]: NonNullable<FileConverConfig[K]>
-} & { outMode?: Mode, emitUnconverted?:boolean};
+    [K in Exclude<keyof FileConverConfig, "outMode"|"emitUnconverted"|"encoding"|"outEncoding">]: NonNullable<FileConverConfig[K]>
+} & Pick<FileConverConfig,"emitUnconverted"|"encoding"|"outEncoding"> & { outMode?: Mode};
 
 /**
  * 文件读写
@@ -155,7 +158,7 @@ export async function fileReadWrite(fileMeta: FileMeta, config: RequiredFileConv
     const { output, outEncoding, outMode, convers,emitUnconverted } = config;
 
     const inputPath = join(root, path);
-    const content = (await readFile(inputPath, { encoding })) as string;
+    const content = await readFile(inputPath, { encoding });
     const inputFileInfo: FileInfo = { ...fileMeta, content };
 
     const result = convers.reduce((preResult: FileWriteInfo[], conver) => {

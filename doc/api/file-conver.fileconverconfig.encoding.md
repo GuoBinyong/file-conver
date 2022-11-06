@@ -9,5 +9,10 @@
 <b>Signature:</b>
 
 ```typescript
-encoding?: BufferEncoding;
+encoding?: BufferEncoding | null;
 ```
+
+## Remarks
+
+当 encoding 为 null 时，文件的内容会读取为 Buffer 类型，否则会读取为 字符串
+

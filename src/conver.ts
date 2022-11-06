@@ -29,7 +29,7 @@ export function createImportConver(objName:string, importPath:string):FileConver
         const fileInfo = preProcessResult.shift();
         if (!fileInfo) return null;
 
-        const {content} = fileInfo;
+        const content = fileInfo.content as string;
 
         if (content == null) return null;
 
