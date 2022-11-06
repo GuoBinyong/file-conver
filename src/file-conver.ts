@@ -43,9 +43,9 @@ export interface FileConverConfig {
     outMode?: Mode | null;
 
     /**
-     * 转换器列表
+     * 转换器
      */
-    convers: FileConver[];
+    conver: FileConver[]|FileConver;
 
     /**
      * 是否输出内容没有变化的文件
@@ -64,9 +64,10 @@ export interface FileConverConfig {
  * @param config 
  */
 export async function fileConver(config: FileConverConfig) {
-    const { input, encoding, output, outEncoding,outMode } = config;
+    const { input, encoding, output, outEncoding,outMode,conver } = config;
     const inEncoding = encoding === undefined ? "utf8" : encoding;
-    const finalConfig = { ...config, input, encoding: inEncoding, output: output ?? input, outEncoding: outEncoding ?? inEncoding,outMode:outMode ?? undefined };
+    const convers = Array.isArray(conver) ? conver : [conver];
+    const finalConfig = { ...config, input, encoding: inEncoding, output: output ?? input, outEncoding: outEncoding ?? inEncoding,outMode:outMode ?? undefined,conver:convers};
 
     const files = getAllFiles(input);
     for await (const path of files) {
@@ -137,7 +138,7 @@ export type ConverResult = FileWriteInfo[] | FileWriteInfo | null | undefined;
 /**
  * 文件转换器
  */
-export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, config: FileConverConfig) => ConverResult;
+export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, config: RequiredFileConverConfig) => ConverResult;
 
 /**
  * 文件内容的类型
@@ -149,8 +150,8 @@ export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, 
  * 文件转换器的配置项的必须版本
  */
 export type RequiredFileConverConfig = {
-    [K in Exclude<keyof FileConverConfig, "outMode"|"emitUnconverted"|"encoding"|"outEncoding">]: NonNullable<FileConverConfig[K]>
-} & Pick<FileConverConfig,"emitUnconverted"|"encoding"|"outEncoding"> & { outMode?: Mode};
+    [K in Exclude<keyof FileConverConfig, "outMode"|"emitUnconverted"|"encoding"|"outEncoding"|"conver">]: NonNullable<FileConverConfig[K]>
+} & Pick<FileConverConfig,"emitUnconverted"|"encoding"|"outEncoding"> & { outMode?: Mode,conver:FileConver[]};
 
 /**
  * 文件读写
@@ -160,7 +161,7 @@ export type RequiredFileConverConfig = {
  */
 export async function fileReadWrite(fileMeta: FileMeta, config: RequiredFileConverConfig) {
     const { path, root, encoding } = fileMeta;
-    const { output, outEncoding, outMode, convers,emitUnconverted } = config;
+    const { output, outEncoding, outMode,emitUnconverted,conver:convers } = config;
 
     const inputPath = join(root, path);
     const content = await readFile(inputPath, { encoding });

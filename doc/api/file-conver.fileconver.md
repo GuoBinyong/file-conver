@@ -9,7 +9,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, config: FileConverConfig) => ConverResult;
+export declare type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, config: RequiredFileConverConfig) => ConverResult;
 ```
-<b>References:</b> [FileWriteInfo](./file-conver.filewriteinfo.md)<!-- -->, [FileInfo](./file-conver.fileinfo.md)<!-- -->, [FileConverConfig](./file-conver.fileconverconfig.md)<!-- -->, [ConverResult](./file-conver.converresult.md)
+<b>References:</b> [FileWriteInfo](./file-conver.filewriteinfo.md)<!-- -->, [FileInfo](./file-conver.fileinfo.md)<!-- -->, [RequiredFileConverConfig](./file-conver.requiredfileconverconfig.md)<!-- -->, [ConverResult](./file-conver.converresult.md)
 

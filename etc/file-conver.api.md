@@ -22,14 +22,14 @@ export function createESImportContentConver(objName: string, importPath: string,
 export type FileContent = string | Buffer;
 
 // @public
-export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, config: FileConverConfig) => ConverResult;
+export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, config: RequiredFileConverConfig) => ConverResult;
 
 // @public
 export function fileConver(config: FileConverConfig): Promise<void>;
 
 // @public
 export interface FileConverConfig {
-    convers: FileConver[];
+    conver: FileConver[] | FileConver;
     emitUnconverted?: boolean;
     encoding?: BufferEncoding | null;
     input: string;
@@ -68,9 +68,10 @@ export function getJoinPath(baseUrl: string | URL, path: string): string;
 
 // @public
 export type RequiredFileConverConfig = {
-    [K in Exclude<keyof FileConverConfig, "outMode" | "emitUnconverted" | "encoding" | "outEncoding">]: NonNullable<FileConverConfig[K]>;
+    [K in Exclude<keyof FileConverConfig, "outMode" | "emitUnconverted" | "encoding" | "outEncoding" | "conver">]: NonNullable<FileConverConfig[K]>;
 } & Pick<FileConverConfig, "emitUnconverted" | "encoding" | "outEncoding"> & {
     outMode?: Mode;
+    conver: FileConver[];
 };
 
 // (No @packageDocumentation comment for this package)

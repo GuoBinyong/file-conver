@@ -36,4 +36,4 @@ const import_Conver = createConver(import_ContentConver);
 /**
  * 转换器列表
  */
-export const convers  = [import_Conver]
+export const conver  = [import_Conver]

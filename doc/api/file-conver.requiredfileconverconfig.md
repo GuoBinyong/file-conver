@@ -10,10 +10,11 @@
 
 ```typescript
 export declare type RequiredFileConverConfig = {
-    [K in Exclude<keyof FileConverConfig, "outMode" | "emitUnconverted" | "encoding" | "outEncoding">]: NonNullable<FileConverConfig[K]>;
+    [K in Exclude<keyof FileConverConfig, "outMode" | "emitUnconverted" | "encoding" | "outEncoding" | "conver">]: NonNullable<FileConverConfig[K]>;
 } & Pick<FileConverConfig, "emitUnconverted" | "encoding" | "outEncoding"> & {
     outMode?: Mode;
+    conver: FileConver[];
 };
 ```
-<b>References:</b> [FileConverConfig](./file-conver.fileconverconfig.md)
+<b>References:</b> [FileConverConfig](./file-conver.fileconverconfig.md)<!-- -->, [FileConver](./file-conver.fileconver.md)
 
