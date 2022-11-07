@@ -6,7 +6,7 @@ import { parse } from "node:path"
  * 创建 用于将模块成员的使用方式改成 成员导入的使用方式 的内容转换器
  * @example
  * ```js
- * createESImportContentConver("Cesium","cesium")
+ * createMemberImportContentConver("Cesium","cesium")
  * ```
  * 会将下面的代码
  * ```js
@@ -23,9 +23,9 @@ import { parse } from "node:path"
  * @param type - 是否仅作为类型导入，即 `import type {...} from "..."`
  * @returns 返回一个文件转换器
  */
-export function createESImportContentConver(objName: string, importPath: string, type?: boolean): ContentConver<string> {
+export function createMemberImportContentConver(objName: string, importPath: string, type?: boolean): ContentConver<string> {
 
-    return function esImportContentConver(content: string) {
+    return function memberImportContentConver(content: string) {
 
         // const cesiumRE = /(?<=\s)objName\s*\.\s*(\w+)\b(?!\s*=[^=])/g ;
         const objNameRE = new RegExp(`(?<=\\s)${objName}\\s*\\.\\s*(\\w+)\\b(?!\\s*=[^=])`, "g");
@@ -88,7 +88,7 @@ export interface PathImportContentConverOptions {
     /**
      * 查找路径时使用的正则 或 字符串
      */
-    pathRE: RegExp | string;
+    path: RegExp | string;
     /**
      * 获取 js 导入语句的信息
      * @remarks 
@@ -127,7 +127,7 @@ export interface PathImportContentConverOptions {
  * @returns 
  */
 export function createPathImportContentConver(options: PathImportContentConverOptions) {
-    const { pathRE, getImportInfo, defaultExport, prefix, suffix } = options;
+    const { path: searchPath, getImportInfo, defaultExport, prefix, suffix } = options;
     const importStr = defaultExport ? `import` : `import * as`;
 
     /**
@@ -140,7 +140,7 @@ export function createPathImportContentConver(options: PathImportContentConverOp
         // 名字计数映射
         const nameCountMap: { [Name: string]: number } = {};
 
-        content = content.replaceAll(pathRE, function (...subString) {
+        content = content.replaceAll(searchPath, function (...subString) {
             let { path, name } = getImportInfo(...subString);
             if (name == null) {
                 name = parse(path).name;

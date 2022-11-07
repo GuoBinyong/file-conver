@@ -1,7 +1,7 @@
 
 
 import {createConver,getJoinPath} from "file-conver"
-import {createConver} from "@gby/convers"
+import {createMemberImportContentConver} from "@gby/convers"
 
 
 /**
@@ -31,7 +31,7 @@ export const output =  getJoinPath(import.meta.url,"../demo/output");
 /**
  * cesium 导入方式替换
  */
-const import_ContentConver = createESImportContentConver("Cesium","cesium");
+const import_ContentConver = createMemberImportContentConver("Cesium","cesium");
 const import_Conver = createConver(import_ContentConver);
 
 /**

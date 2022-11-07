@@ -18,7 +18,7 @@ export interface PathImportContentConverOptions
 |  --- | --- | --- | --- |
 |  [defaultExport?](./convers.pathimportcontentconveroptions.defaultexport.md) |  | boolean \| null | <i>(Optional)</i> 是否只导入默认导出项 |
 |  [getImportInfo](./convers.pathimportcontentconveroptions.getimportinfo.md) |  | [GetJsImportInfo](./convers.getjsimportinfo.md) | 获取 js 导入语句的信息 |
-|  [pathRE](./convers.pathimportcontentconveroptions.pathre.md) |  | RegExp \| string | 查找路径时使用的正则 或 字符串 |
+|  [path](./convers.pathimportcontentconveroptions.path.md) |  | RegExp \| string | 查找路径时使用的正则 或 字符串 |
 |  [prefix?](./convers.pathimportcontentconveroptions.prefix.md) |  | string \| null | <i>(Optional)</i> 导入变量名的前缀 |
 |  [suffix?](./convers.pathimportcontentconveroptions.suffix.md) |  | string \| null | <i>(Optional)</i> 导入变量名的后缀 |
 

@@ -8,7 +8,7 @@
 
 |  Function | Description |
 |  --- | --- |
-|  [createESImportContentConver(objName, importPath, type)](./convers.createesimportcontentconver.md) | 创建 用于将模块成员的使用方式改成 成员导入的使用方式 的内容转换器 |
+|  [createMemberImportContentConver(objName, importPath, type)](./convers.creatememberimportcontentconver.md) | 创建 用于将模块成员的使用方式改成 成员导入的使用方式 的内容转换器 |
 |  [createPathImportContentConver(options)](./convers.createpathimportcontentconver.md) | 创建 用于将 直接使用 路径的方式替换成 导入的方式的 内容转换器 |
 
 ## Interfaces

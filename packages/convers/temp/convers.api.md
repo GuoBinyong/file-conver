@@ -7,7 +7,7 @@
 import type { ContentConver } from 'file-conver';
 
 // @public
-export function createESImportContentConver(objName: string, importPath: string, type?: boolean): ContentConver<string>;
+export function createMemberImportContentConver(objName: string, importPath: string, type?: boolean): ContentConver<string>;
 
 // @public
 export function createPathImportContentConver(options: PathImportContentConverOptions): (content: string) => string;
@@ -25,7 +25,7 @@ export interface JsImportInfo {
 export interface PathImportContentConverOptions {
     defaultExport?: boolean | null;
     getImportInfo: GetJsImportInfo;
-    pathRE: RegExp | string;
+    path: RegExp | string;
     prefix?: string | null;
     suffix?: string | null;
 }
