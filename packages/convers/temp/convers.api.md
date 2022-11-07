@@ -4,7 +4,7 @@
 
 ```ts
 
-import { ContentConver } from 'file-conver';
+import type { ContentConver } from 'file-conver';
 
 // @public
 export function createESImportContentConver(objName: string, importPath: string, type?: boolean): ContentConver<string>;

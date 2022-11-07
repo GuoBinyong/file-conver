@@ -1,4 +1,4 @@
-import {ContentConver} from "file-conver";
+import type {ContentConver} from "file-conver";
 
 
 /**
