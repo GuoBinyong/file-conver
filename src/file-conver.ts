@@ -1,7 +1,7 @@
 
 import { readFile, writeFile } from "node:fs/promises"
 import { existsSync, mkdirSync, Mode } from "node:fs"
-import { join, relative, dirname } from "node:path"
+import { join, relative, dirname,parse,format,ParsedPath } from "node:path"
 import { getAllFiles } from "./fs-tools.js"
 
 
@@ -72,10 +72,12 @@ export async function fileConver(config: FileConverConfig) {
     const files = getAllFiles(input);
     for await (const path of files) {
         const filePath = relative(input, path);
+        const pathInfo = parse(filePath);
 
         fileReadWrite({
+            ...pathInfo,
             root: input,
-            path: filePath,
+            path,
             encoding: inEncoding,
         }, finalConfig)
     }
@@ -86,15 +88,13 @@ export async function fileConver(config: FileConverConfig) {
 /**
  * 文件的元数据
  */
-export interface FileMeta {
+export interface FileMeta extends ParsedPath {
+    // /**
+    // * 根目录
+    // */
+    // root: string;
     /**
-    * 根目录
-    */
-    root: string;
-    /**
-     * 文件的路径
-     * @remarks
-     * 不能是目录
+     * 资源的全路径
      */
     path: string;
 
@@ -128,7 +128,7 @@ export interface FileInfo extends FileMeta {
 /**
  * 文件写入选项
  */
-export type FileWriteInfo = Partial<FileMeta> & Pick<FileInfo, "content">
+export type FileWriteInfo = Partial<Omit<FileMeta,"path">> & Pick<FileInfo, "content">
 
 /**
  * 处理结果
@@ -164,11 +164,10 @@ export type RequiredFileConverConfig = {
  * @param config 
  */
 export async function fileReadWrite(fileMeta: FileMeta, config: RequiredFileConverConfig) {
-    const { path, root, encoding } = fileMeta;
+    const { dir,base,path, encoding } = fileMeta;
     const { output, outEncoding, outMode,emitUnconverted,conver:convers } = config;
 
-    const inputPath = join(root, path);
-    const content = await readFile(inputPath, { encoding });
+    const content = await readFile(path, { encoding });
     const inputFileInfo: FileInfo = { ...fileMeta, content };
 
 
@@ -179,20 +178,27 @@ export async function fileReadWrite(fileMeta: FileMeta, config: RequiredFileConv
     }
 
     for (const info of writeInfoArr) {
-        let { root: wRoot, path: wPath, content: wContent, encoding: wEncoding,mode:wModel } = info;
+        let { root: wRoot,dir:wDir,name:wName,ext:wExt,base:wBase, content: wContent, encoding: wEncoding,mode:wModel } = info;
         if (wContent == null) continue;
         const isUnconverted = wContent === content;
         if (isUnconverted && !emitUnconverted) continue;
 
         wRoot = wRoot ?? output;
-        wPath = wPath ?? path;
+        wDir = wDir ?? dir;
+     
         wEncoding = wEncoding ?? outEncoding;
         wModel = wModel ?? outMode;
 
-        if (isUnconverted && wRoot === root && wPath === path && wEncoding === encoding && !wModel) continue;
+        if (wName == null ||  wExt == null){
+            wBase = wBase ?? base;
+        }else {
+            wBase = wName + wExt;
+        }
 
+        const outPath = join(wRoot,wDir,wBase);
 
-        const outPath = join(wRoot, wPath);
+        if (isUnconverted && outPath === path && wEncoding === encoding && !wModel) continue;
+
         const outDir = dirname(outPath);
         if (!existsSync(outDir)) {
             mkdirSync(outDir, { recursive: true })
