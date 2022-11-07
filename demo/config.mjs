@@ -1,7 +1,7 @@
 
 
 import {createConver,getJoinPath} from "file-conver"
-import {createConver} from "@file/convers"
+import {createConver} from "@gby/convers"
 
 
 /**

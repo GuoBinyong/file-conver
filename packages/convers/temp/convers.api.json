@@ -161,20 +161,20 @@
     }
   },
   "kind": "Package",
-  "canonicalReference": "@file/convers!",
+  "canonicalReference": "@gby/convers!",
   "docComment": "",
-  "name": "@file/convers",
+  "name": "@gby/convers",
   "preserveMemberOrder": false,
   "members": [
     {
       "kind": "EntryPoint",
-      "canonicalReference": "@file/convers!",
+      "canonicalReference": "@gby/convers!",
       "name": "",
       "preserveMemberOrder": false,
       "members": [
         {
           "kind": "Function",
-          "canonicalReference": "@file/convers!createESImportContentConver:function(1)",
+          "canonicalReference": "@gby/convers!createESImportContentConver:function(1)",
           "docComment": "/**\n * 创建 用于将模块成员的使用方式改成 成员导入的使用方式 的内容转换器\n *\n * @param objName - 模块名字\n *\n * @param importPath - 模块的导入路径\n *\n * @param type - 是否仅作为类型导入，即 `import type {...} from \"...\"`\n *\n * @returns 返回一个文件转换器\n *\n * @example\n * ```js\n * createESImportContentConver(\"Cesium\",\"cesium\")\n * ```\n *\n * 会将下面的代码\n * ```js\n * new Cesium.Cartesian3();\n * ```\n *\n * 修改成\n * ```js\n * import {Cartesian3} from \"cesium\";\n *\n * new Cartesian3();\n * ```\n *\n */\n",
           "excerptTokens": [
             {

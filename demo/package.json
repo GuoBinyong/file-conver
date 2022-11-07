@@ -1,8 +1,8 @@
 {
-  "name": "file-conver",
+  "name": "file-conver-demo",
   "private": true,
   "dependencies": {
-    "@file/convers": "workspace:^1.0.0",
+    "@gby/convers": "workspace:^1.0.0",
     "file-conver": "workspace:^3.0.0"
   }
 }
