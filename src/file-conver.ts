@@ -137,8 +137,12 @@ export type ConverResult = FileWriteInfo[] | FileWriteInfo | null | undefined;
 
 /**
  * 文件转换器
+ * @remarks
+ * 可返回 Promise ，支持异步转换
+ * 
+ * @returns 当返回 或 `content` 为  null | undefined 时，则不会生成对应的输出文件
  */
-export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, config: RequiredFileConverConfig) => ConverResult;
+export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, config: RequiredFileConverConfig) => ConverResult | Promise<ConverResult>;
 
 /**
  * 文件内容的类型
@@ -167,13 +171,16 @@ export async function fileReadWrite(fileMeta: FileMeta, config: RequiredFileConv
     const content = await readFile(inputPath, { encoding });
     const inputFileInfo: FileInfo = { ...fileMeta, content };
 
-    const result = convers.reduce((preResult: FileWriteInfo[], conver) => {
-        const result = conver(preResult, inputFileInfo, config);
-        return result ? (Array.isArray(result) ? result : [result]) : [];
-    }, [{ ...inputFileInfo, root: output, encoding: outEncoding ,mode:outMode }]);
 
-    for (const info of result) {
+    let writeInfoArr:FileWriteInfo[] =  [{ ...inputFileInfo, root: output, encoding: outEncoding ,mode:outMode }];
+    for (const conver of  convers){
+        const result = await conver(writeInfoArr, inputFileInfo, config);
+        writeInfoArr = result ? (Array.isArray(result) ? result : [result]) : [];
+    }
+
+    for (const info of writeInfoArr) {
         let { root: wRoot, path: wPath, content: wContent, encoding: wEncoding,mode:wModel } = info;
+        if (wContent == null) continue;
         const isUnconverted = wContent === content;
         if (isUnconverted && !emitUnconverted) continue;
 
