@@ -192,7 +192,25 @@
             },
             {
               "kind": "Content",
-              "text": "(content: Content) => Content | null | undefined | "
+              "text": "(content: Content, fileInfo: "
+            },
+            {
+              "kind": "Reference",
+              "text": "FileInfo",
+              "canonicalReference": "file-conver!FileInfo:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", config: "
+            },
+            {
+              "kind": "Reference",
+              "text": "RequiredFileConverConfig",
+              "canonicalReference": "file-conver!RequiredFileConverConfig:type"
+            },
+            {
+              "kind": "Content",
+              "text": ") => Content | null | undefined | "
             },
             {
               "kind": "Reference",
@@ -226,7 +244,7 @@
           ],
           "typeTokenRange": {
             "startIndex": 3,
-            "endIndex": 6
+            "endIndex": 10
           }
         },
         {

@@ -40,9 +40,7 @@ import type {ContentConver} from "file-conver";
         if (memberSet.size>0){
             const memberStr = Array.from(memberSet).join(", ");
             const importStr = type ? "import type" : "import";
-            result = `
-${importStr} {${memberStr}} from "${importPath}";
-
+            result = `${importStr} {${memberStr}} from "${importPath}";
 ${result}`;
         }
 

@@ -9,7 +9,7 @@ import { Mode } from 'node:fs';
 import { ParsedPath } from 'node:path';
 
 // @public
-export type ContentConver<Content extends FileContent> = (content: Content) => Content | null | undefined | Promise<Content | null | undefined>;
+export type ContentConver<Content extends FileContent> = (content: Content, fileInfo: FileInfo, config: RequiredFileConverConfig) => Content | null | undefined | Promise<Content | null | undefined>;
 
 // @public
 export type ConverResult = FileWriteInfo[] | FileWriteInfo | null | undefined;

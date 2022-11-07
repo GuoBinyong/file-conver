@@ -9,9 +9,9 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type ContentConver<Content extends FileContent> = (content: Content) => Content | null | undefined | Promise<Content | null | undefined>;
+export declare type ContentConver<Content extends FileContent> = (content: Content, fileInfo: FileInfo, config: RequiredFileConverConfig) => Content | null | undefined | Promise<Content | null | undefined>;
 ```
-<b>References:</b> [FileContent](./file-conver.filecontent.md)
+<b>References:</b> [FileContent](./file-conver.filecontent.md)<!-- -->, [FileInfo](./file-conver.fileinfo.md)<!-- -->, [RequiredFileConverConfig](./file-conver.requiredfileconverconfig.md)
 
 ## Remarks
 
