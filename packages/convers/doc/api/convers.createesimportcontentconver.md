@@ -41,7 +41,6 @@ new Cesium.Cartesian3();
 
 ```js
 import {Cartesian3} from "cesium";
-
 new Cartesian3();
 ```
 

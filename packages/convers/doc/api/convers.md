@@ -9,4 +9,18 @@
 |  Function | Description |
 |  --- | --- |
 |  [createESImportContentConver(objName, importPath, type)](./convers.createesimportcontentconver.md) | 创建 用于将模块成员的使用方式改成 成员导入的使用方式 的内容转换器 |
+|  [createPathImportContentConver(options)](./convers.createpathimportcontentconver.md) | 创建 用于将 直接使用 路径的方式替换成 导入的方式的 内容转换器 |
+
+## Interfaces
+
+|  Interface | Description |
+|  --- | --- |
+|  [JsImportInfo](./convers.jsimportinfo.md) | js资源导入信息 |
+|  [PathImportContentConverOptions](./convers.pathimportcontentconveroptions.md) | createPathImportContentConver 的选项 |
+
+## Type Aliases
+
+|  Type Alias | Description |
+|  --- | --- |
+|  [GetJsImportInfo](./convers.getjsimportinfo.md) | 获取js 导入信息的回调函数类型 |
 

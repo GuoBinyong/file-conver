@@ -9,6 +9,27 @@ import type { ContentConver } from 'file-conver';
 // @public
 export function createESImportContentConver(objName: string, importPath: string, type?: boolean): ContentConver<string>;
 
+// @public
+export function createPathImportContentConver(options: PathImportContentConverOptions): (content: string) => string;
+
+// @public
+export type GetJsImportInfo = (matchingString: string, ...subString: any[]) => JsImportInfo;
+
+// @public
+export interface JsImportInfo {
+    name?: string | null;
+    path: string;
+}
+
+// @public
+export interface PathImportContentConverOptions {
+    defaultExport?: boolean | null;
+    getImportInfo: GetJsImportInfo;
+    pathRE: RegExp | string;
+    prefix?: string | null;
+    suffix?: string | null;
+}
+
 // (No @packageDocumentation comment for this package)
 
 ```

@@ -175,7 +175,7 @@
         {
           "kind": "Function",
           "canonicalReference": "@gby/convers!createESImportContentConver:function(1)",
-          "docComment": "/**\n * 创建 用于将模块成员的使用方式改成 成员导入的使用方式 的内容转换器\n *\n * @param objName - 模块名字\n *\n * @param importPath - 模块的导入路径\n *\n * @param type - 是否仅作为类型导入，即 `import type {...} from \"...\"`\n *\n * @returns 返回一个文件转换器\n *\n * @example\n * ```js\n * createESImportContentConver(\"Cesium\",\"cesium\")\n * ```\n *\n * 会将下面的代码\n * ```js\n * new Cesium.Cartesian3();\n * ```\n *\n * 修改成\n * ```js\n * import {Cartesian3} from \"cesium\";\n *\n * new Cartesian3();\n * ```\n *\n */\n",
+          "docComment": "/**\n * 创建 用于将模块成员的使用方式改成 成员导入的使用方式 的内容转换器\n *\n * @param objName - 模块名字\n *\n * @param importPath - 模块的导入路径\n *\n * @param type - 是否仅作为类型导入，即 `import type {...} from \"...\"`\n *\n * @returns 返回一个文件转换器\n *\n * @example\n * ```js\n * createESImportContentConver(\"Cesium\",\"cesium\")\n * ```\n *\n * 会将下面的代码\n * ```js\n * new Cesium.Cartesian3();\n * ```\n *\n * 修改成\n * ```js\n * import {Cartesian3} from \"cesium\";\n * new Cartesian3();\n * ```\n *\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -253,6 +253,314 @@
             }
           ],
           "name": "createESImportContentConver"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@gby/convers!createPathImportContentConver:function(1)",
+          "docComment": "/**\n * 创建 用于将 直接使用 路径的方式替换成 导入的方式的 内容转换器\n *\n * @param options - \n *\n * @returns \n *\n * @example\n *\n * 可用于如下内容的转换\n * ```js\n * imgDom.src = \"/image/icon.png\"\n * ```\n *\n * 修改成\n * ```js\n * import icon from \"/image/icon.png\";\n * imgDom.src = icon\n * ```\n *\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function createPathImportContentConver(options: "
+            },
+            {
+              "kind": "Reference",
+              "text": "PathImportContentConverOptions",
+              "canonicalReference": "@gby/convers!PathImportContentConverOptions:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "(content: string) => string"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/js-conver.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 4
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "options",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "createPathImportContentConver"
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@gby/convers!GetJsImportInfo:type",
+          "docComment": "/**\n * 获取js 导入信息的回调函数类型\n *\n * @param matchingString - 正则匹配的完整字符串\n *\n * @param subString - 正则捕获的子字符串\n *\n * @returns 返回导入所需求的信息\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare type GetJsImportInfo = "
+            },
+            {
+              "kind": "Content",
+              "text": "(matchingString: string, ...subString: any[]) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "JsImportInfo",
+              "canonicalReference": "@gby/convers!JsImportInfo:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/js-conver.d.ts",
+          "releaseTag": "Public",
+          "name": "GetJsImportInfo",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 3
+          }
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@gby/convers!JsImportInfo:interface",
+          "docComment": "/**\n * js资源导入信息\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface JsImportInfo "
+            }
+          ],
+          "fileUrlPath": "dist/js-conver.d.ts",
+          "releaseTag": "Public",
+          "name": "JsImportInfo",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@gby/convers!JsImportInfo#name:member",
+              "docComment": "/**\n * 导入的模块名字\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "name?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string | null"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "name",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@gby/convers!JsImportInfo#path:member",
+              "docComment": "/**\n * 导入的路径\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "path: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "path",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@gby/convers!PathImportContentConverOptions:interface",
+          "docComment": "/**\n * createPathImportContentConver 的选项\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface PathImportContentConverOptions "
+            }
+          ],
+          "fileUrlPath": "dist/js-conver.d.ts",
+          "releaseTag": "Public",
+          "name": "PathImportContentConverOptions",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@gby/convers!PathImportContentConverOptions#defaultExport:member",
+              "docComment": "/**\n * 是否只导入默认导出项\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "defaultExport?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean | null"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "defaultExport",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@gby/convers!PathImportContentConverOptions#getImportInfo:member",
+              "docComment": "/**\n * 获取 js 导入语句的信息\n *\n * @remarks\n *\n * 会传入与 pathRE 所匹配的字符串\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "getImportInfo: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "GetJsImportInfo",
+                  "canonicalReference": "@gby/convers!GetJsImportInfo:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "getImportInfo",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@gby/convers!PathImportContentConverOptions#pathRE:member",
+              "docComment": "/**\n * 查找路径时使用的正则 或 字符串\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "pathRE: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RegExp",
+                  "canonicalReference": "!RegExp:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " | string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "pathRE",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@gby/convers!PathImportContentConverOptions#prefix:member",
+              "docComment": "/**\n * 导入变量名的前缀\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "prefix?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string | null"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "prefix",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@gby/convers!PathImportContentConverOptions#suffix:member",
+              "docComment": "/**\n * 导入变量名的后缀\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "suffix?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string | null"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "suffix",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
         }
       ]
     }
