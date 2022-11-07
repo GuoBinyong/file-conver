@@ -1,8 +1,8 @@
 
 import { readFile, writeFile } from "node:fs/promises"
 import { existsSync, mkdirSync, Mode } from "node:fs"
-import { join, relative, dirname,parse,format,ParsedPath } from "node:path"
-import { getAllFiles } from "./fs-tools.js"
+import { join, relative, dirname,parse,ParsedPath } from "node:path"
+import { getAllFiles,Filter } from "./fs-tools.js"
 
 
 /**
@@ -20,6 +20,10 @@ export interface FileConverConfig {
      * @defaultValue "utf8"
      */
     encoding?: BufferEncoding | null;
+    
+    /** {@inheritDoc ./fs-tools.js#Filter} */
+    filter?: Filter | null;
+
 
     /**
      * 输出路径
@@ -56,31 +60,6 @@ export interface FileConverConfig {
      * @defaultValue false
      */
     emitUnconverted?:boolean;
-}
-
-
-/**
- * 批量处理文件
- * @param config 
- */
-export async function fileConver(config: FileConverConfig) {
-    const { input, encoding, output, outEncoding,outMode,conver } = config;
-    const inEncoding = encoding === undefined ? "utf8" : encoding;
-    const convers = Array.isArray(conver) ? conver : [conver];
-    const finalConfig = { ...config, input, encoding: inEncoding, output: output ?? input, outEncoding: outEncoding ?? inEncoding,outMode:outMode ?? undefined,conver:convers};
-
-    const files = getAllFiles(input);
-    for await (const path of files) {
-        const filePath = relative(input, path);
-        const pathInfo = parse(filePath);
-
-        fileReadWrite({
-            ...pathInfo,
-            root: input,
-            path,
-            encoding: inEncoding,
-        }, finalConfig)
-    }
 }
 
 
@@ -130,6 +109,37 @@ export interface FileInfo extends FileMeta {
  */
 export type FileWriteInfo = Partial<Omit<FileMeta,"path">> & Pick<FileInfo, "content">
 
+
+
+
+
+/**
+ * 批量处理文件
+ * @param config 
+ */
+ export async function fileConver(config: FileConverConfig) {
+    const { input, encoding,filter ,output, outEncoding,outMode,conver } = config;
+    const inEncoding = encoding === undefined ? "utf8" : encoding;
+    const convers = Array.isArray(conver) ? conver : [conver];
+    const finalConfig = { ...config, input, encoding: inEncoding, output: output ?? input, outEncoding: outEncoding ?? inEncoding,outMode:outMode ?? undefined,conver:convers};
+
+    const files = getAllFiles(input,filter);
+    for await (const path of files) {
+        const filePath = relative(input, path);
+        const pathInfo = parse(filePath);
+
+        fileReadWrite({
+            ...pathInfo,
+            root: input,
+            path,
+            encoding: inEncoding,
+        }, finalConfig)
+    }
+}
+
+
+
+
 /**
  * 处理结果
  */
@@ -154,8 +164,8 @@ export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, 
  * 文件转换器的配置项的必须版本
  */
 export type RequiredFileConverConfig = {
-    [K in Exclude<keyof FileConverConfig, "outMode"|"emitUnconverted"|"encoding"|"outEncoding"|"conver">]: NonNullable<FileConverConfig[K]>
-} & Pick<FileConverConfig,"emitUnconverted"|"encoding"|"outEncoding"> & { outMode?: Mode,conver:FileConver[]};
+    [K in Exclude<keyof FileConverConfig, "outMode"|"emitUnconverted"|"encoding"|"outEncoding"|"conver"|"filter">]: NonNullable<FileConverConfig[K]>
+} & Pick<FileConverConfig,"emitUnconverted"|"encoding"|"outEncoding"|"filter"> & { outMode?: Mode,conver:FileConver[]};
 
 /**
  * 文件读写
