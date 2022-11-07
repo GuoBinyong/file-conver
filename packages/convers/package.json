@@ -1,17 +1,14 @@
 {
-  "name": "file-conver",
-  "version": "2.7.0",
-  "description": "file-conver 用于批量处理文件，支持文件过滤、自定义处理逻辑",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "name": "@file/convers",
+  "version": "1.0.0",
+  "description": "@file/convers 提供了一些常用的 file-conver 转换器",
+  "main": "./dist/convers.js",
+  "module": "./dist/convers.mjs",
   "exports": {
-    "import": "./dist/index.mjs",
-    "require": "./dist/index.js"
+    "import": "./dist/convers.mjs",
+    "require": "./dist/convers.js"
   },
   "types": "dist/index.d.ts",
-  "bin": {
-    "fileconver": "./dist/fileconver.mjs"
-  },
   "sideEffects": false,
   "homepage": "https://github.com/GuoBinyong/file-conver#readme",
   "repository": {
