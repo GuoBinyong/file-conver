@@ -19,6 +19,7 @@ export interface FileConverConfig
 |  [conver](./file-conver.fileconverconfig.conver.md) |  | [FileConver](./file-conver.fileconver.md)<!-- -->\[\] \| [FileConver](./file-conver.fileconver.md) | 转换器 |
 |  [emitUnconverted?](./file-conver.fileconverconfig.emitunconverted.md) |  | boolean | <i>(Optional)</i> 是否输出内容没有变化的文件 |
 |  [encoding?](./file-conver.fileconverconfig.encoding.md) |  | BufferEncoding \| null | <i>(Optional)</i> 输入文件的字符编码 |
+|  [filter?](./file-conver.fileconverconfig.filter.md) |  | [Filter](./file-conver.filter.md) \| null | <i>(Optional)</i> |
 |  [input](./file-conver.fileconverconfig.input.md) |  | string | 入口路径 |
 |  [outEncoding?](./file-conver.fileconverconfig.outencoding.md) |  | BufferEncoding \| null | <i>(Optional)</i> 输出文件的字符编码 |
 |  [outMode?](./file-conver.fileconverconfig.outmode.md) |  | Mode \| null | <i>(Optional)</i> 输出文件的模式（权限） |

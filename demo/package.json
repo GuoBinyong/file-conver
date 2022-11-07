@@ -1,0 +1,8 @@
+{
+  "name": "file-conver",
+  "private": true,
+  "dependencies": {
+    "@file/convers": "workspace:^1.0.0",
+    "file-conver": "workspace:^2.7.0"
+  }
+}

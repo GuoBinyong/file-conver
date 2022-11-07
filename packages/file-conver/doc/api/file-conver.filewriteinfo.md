@@ -9,7 +9,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type FileWriteInfo = Partial<FileMeta> & Pick<FileInfo, "content">;
+export declare type FileWriteInfo = Partial<Omit<FileMeta, "path">> & Pick<FileInfo, "content">;
 ```
 <b>References:</b> [FileMeta](./file-conver.filemeta.md)<!-- -->, [FileInfo](./file-conver.fileinfo.md)
 

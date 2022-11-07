@@ -9,7 +9,11 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type ContentConver<Content extends FileContent> = (content: Content) => Content | null | undefined;
+export declare type ContentConver<Content extends FileContent> = (content: Content) => Content | null | undefined | Promise<Content | null | undefined>;
 ```
 <b>References:</b> [FileContent](./file-conver.filecontent.md)
+
+## Remarks
+
+如果某个内容转换器返回 null 或 undefined，则后续的内容转换器便不会调用。
 

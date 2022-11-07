@@ -1,6 +1,7 @@
 
 
-import {createConver,createESImportContentConver,getJoinPath} from "../dist/index.mjs"
+import {createConver,getJoinPath} from "file-conver"
+import {createConver} from "@file/convers"
 
 
 /**

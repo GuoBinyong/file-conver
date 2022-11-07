@@ -10,8 +10,8 @@
 
 ```typescript
 export declare type RequiredFileConverConfig = {
-    [K in Exclude<keyof FileConverConfig, "outMode" | "emitUnconverted" | "encoding" | "outEncoding" | "conver">]: NonNullable<FileConverConfig[K]>;
-} & Pick<FileConverConfig, "emitUnconverted" | "encoding" | "outEncoding"> & {
+    [K in Exclude<keyof FileConverConfig, "outMode" | "emitUnconverted" | "encoding" | "outEncoding" | "conver" | "filter">]: NonNullable<FileConverConfig[K]>;
+} & Pick<FileConverConfig, "emitUnconverted" | "encoding" | "outEncoding" | "filter"> & {
     outMode?: Mode;
     conver: FileConver[];
 };

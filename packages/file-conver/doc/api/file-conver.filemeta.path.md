@@ -4,15 +4,10 @@
 
 ## FileMeta.path property
 
-文件的路径
+资源的全路径
 
 <b>Signature:</b>
 
 ```typescript
 path: string;
 ```
-
-## Remarks
-
-不能是目录
-

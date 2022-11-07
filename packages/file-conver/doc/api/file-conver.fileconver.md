@@ -9,7 +9,11 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, config: RequiredFileConverConfig) => ConverResult;
+export declare type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, config: RequiredFileConverConfig) => ConverResult | Promise<ConverResult>;
 ```
 <b>References:</b> [FileWriteInfo](./file-conver.filewriteinfo.md)<!-- -->, [FileInfo](./file-conver.fileinfo.md)<!-- -->, [RequiredFileConverConfig](./file-conver.requiredfileconverconfig.md)<!-- -->, [ConverResult](./file-conver.converresult.md)
+
+## Remarks
+
+可返回 Promise ，支持异步转换
 

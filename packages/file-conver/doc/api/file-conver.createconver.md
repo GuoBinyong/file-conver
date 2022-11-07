@@ -4,7 +4,7 @@
 
 ## createConver() function
 
-通过内容转换器生成创建文件转换器
+通过一组内容转换器生成创建文件转换器
 
 <b>Signature:</b>
 
@@ -23,4 +23,8 @@ export declare function createConver<Content extends FileContent>(contentConver:
 [FileConver](./file-conver.fileconver.md)
 
 文件转换器
+
+## Remarks
+
+如果某个内容转换器返回 null 或 undefined，则后续的内容转换器便不会调用。
 

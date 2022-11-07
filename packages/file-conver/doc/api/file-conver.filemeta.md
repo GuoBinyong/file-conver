@@ -9,8 +9,9 @@
 <b>Signature:</b>
 
 ```typescript
-export interface FileMeta 
+export interface FileMeta extends ParsedPath 
 ```
+<b>Extends:</b> ParsedPath
 
 ## Properties
 
@@ -18,6 +19,5 @@ export interface FileMeta
 |  --- | --- | --- | --- |
 |  [encoding?](./file-conver.filemeta.encoding.md) |  | BufferEncoding \| null | <i>(Optional)</i> 文件的字符编码 |
 |  [mode?](./file-conver.filemeta.mode.md) |  | Mode \| null | <i>(Optional)</i> 输出文件的模式（权限） |
-|  [path](./file-conver.filemeta.path.md) |  | string | 文件的路径 |
-|  [root](./file-conver.filemeta.root.md) |  | string | 根目录 |
+|  [path](./file-conver.filemeta.path.md) |  | string | 资源的全路径 |
 

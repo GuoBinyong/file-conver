@@ -4,10 +4,12 @@
 
 ```ts
 
+import type { Dirent } from 'node:fs';
 import { Mode } from 'node:fs';
+import { ParsedPath } from 'node:path';
 
 // @public
-export type ContentConver<Content extends FileContent> = (content: Content) => Content | null | undefined;
+export type ContentConver<Content extends FileContent> = (content: Content) => Content | null | undefined | Promise<Content | null | undefined>;
 
 // @public
 export type ConverResult = FileWriteInfo[] | FileWriteInfo | null | undefined;
@@ -16,13 +18,10 @@ export type ConverResult = FileWriteInfo[] | FileWriteInfo | null | undefined;
 export function createConver<Content extends FileContent>(contentConver: ContentConver<Content>[] | ContentConver<Content>): FileConver;
 
 // @public
-export function createESImportContentConver(objName: string, importPath: string, type?: boolean): ContentConver<string>;
-
-// @public
 export type FileContent = string | Buffer;
 
 // @public
-export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, config: RequiredFileConverConfig) => ConverResult;
+export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, config: RequiredFileConverConfig) => ConverResult | Promise<ConverResult>;
 
 // @public
 export function fileConver(config: FileConverConfig): Promise<void>;
@@ -32,6 +31,10 @@ export interface FileConverConfig {
     conver: FileConver[] | FileConver;
     emitUnconverted?: boolean;
     encoding?: BufferEncoding | null;
+    // Warning: (ae-unresolved-inheritdoc-reference) The @inheritDoc reference could not be resolved: Import paths are not supported
+    //
+    // (undocumented)
+    filter?: Filter | null;
     input: string;
     outEncoding?: BufferEncoding | null;
     outMode?: Mode | null;
@@ -44,32 +47,34 @@ export interface FileInfo extends FileMeta {
 }
 
 // @public
-export interface FileMeta {
+export interface FileMeta extends ParsedPath {
     encoding?: BufferEncoding | null;
     mode?: Mode | null;
     path: string;
-    root: string;
 }
 
 // @public
 export function fileReadWrite(fileMeta: FileMeta, config: RequiredFileConverConfig): Promise<void>;
 
 // @public
-export type FileWriteInfo = Partial<FileMeta> & Pick<FileInfo, "content">;
+export type FileWriteInfo = Partial<Omit<FileMeta, "path">> & Pick<FileInfo, "content">;
 
 // @public
-export function getAllFiles(path: string): AsyncGenerator<string, void, unknown>;
+export type Filter = (dirent: Dirent, path: string) => boolean | null | undefined;
 
 // @public
-export function getAllFilesOfDir(path: string): AsyncGenerator<string>;
+export function getAllFiles(path: string, filter?: Filter | null): AsyncGenerator<string, void, unknown>;
+
+// @public
+export function getAllFilesOfDir(path: string, filter?: Filter | null): AsyncGenerator<string>;
 
 // @public
 export function getJoinPath(baseUrl: string | URL, path: string): string;
 
 // @public
 export type RequiredFileConverConfig = {
-    [K in Exclude<keyof FileConverConfig, "outMode" | "emitUnconverted" | "encoding" | "outEncoding" | "conver">]: NonNullable<FileConverConfig[K]>;
-} & Pick<FileConverConfig, "emitUnconverted" | "encoding" | "outEncoding"> & {
+    [K in Exclude<keyof FileConverConfig, "outMode" | "emitUnconverted" | "encoding" | "outEncoding" | "conver" | "filter">]: NonNullable<FileConverConfig[K]>;
+} & Pick<FileConverConfig, "emitUnconverted" | "encoding" | "outEncoding" | "filter"> & {
     outMode?: Mode;
     conver: FileConver[];
 };

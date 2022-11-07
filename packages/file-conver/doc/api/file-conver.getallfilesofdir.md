@@ -9,7 +9,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getAllFilesOfDir(path: string): AsyncGenerator<string>;
+export declare function getAllFilesOfDir(path: string, filter?: Filter | null): AsyncGenerator<string>;
 ```
 
 ## Parameters
@@ -17,6 +17,7 @@ export declare function getAllFilesOfDir(path: string): AsyncGenerator<string>;
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  path | string |  |
+|  filter | [Filter](./file-conver.filter.md) \| null | <i>(Optional)</i> 资源过滤器 |
 
 <b>Returns:</b>
 
