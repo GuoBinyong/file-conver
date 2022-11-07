@@ -5,7 +5,7 @@ importers:
   demo:
     specifiers:
       '@gby/convers': workspace:^1.0.2
-      file-conver: workspace:^3.0.0
+      file-conver: workspace:^3.1.0
     dependencies:
       '@gby/convers': link:../packages/convers
       file-conver: link:../packages/file-conver
@@ -17,7 +17,7 @@ importers:
       '@types/node': ^18.11.9
       build-tls: ^1.3.11
       dts-bundle-generator: ^6.12.0
-      file-conver: workspace:^3.0.0
+      file-conver: workspace:^3.1.0
       package-tls: ^1.3.1
       typescript: ^4.5.4
       vite: ^3.0.9

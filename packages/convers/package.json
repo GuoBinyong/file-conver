@@ -1,6 +1,6 @@
 {
   "name": "@gby/convers",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "convers 提供了一些常用的 file-conver 转换器",
   "main": "./dist/convers.js",
   "module": "./dist/convers.mjs",
@@ -54,7 +54,7 @@
     "@types/node": "^18.11.9",
     "build-tls": "^1.3.11",
     "dts-bundle-generator": "^6.12.0",
-    "file-conver": "workspace:^3.0.0",
+    "file-conver": "workspace:^3.1.0",
     "package-tls": "^1.3.1",
     "typescript": "^4.5.4",
     "vite": "^3.0.9",

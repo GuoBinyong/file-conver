@@ -1,6 +1,6 @@
 {
   "name": "file-conver",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "file-conver 用于批量处理文件，支持文件过滤、自定义处理逻辑",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
