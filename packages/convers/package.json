@@ -60,6 +60,6 @@
     "vite-plugin-dts": "^1.4.0"
   },
   "dependencies": {
-    "file-conver": "workspace:^2.7.0"
+    "file-conver": "workspace:^3.0.0"
   }
 }
