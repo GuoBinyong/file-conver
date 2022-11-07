@@ -11,6 +11,5 @@
     "skipLibCheck": true,
     "useDefineForClassFields": true,
     "noImplicitOverride":true
-  },
-  "include": ["src"]
+  }
 }

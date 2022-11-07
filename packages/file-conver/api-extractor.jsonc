@@ -1,0 +1,4 @@
+{
+  // 被继承的配置文件
+  "extends": "../../api-extractor.jsonc"
+}

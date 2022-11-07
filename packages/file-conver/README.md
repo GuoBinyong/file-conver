@@ -1,5 +1,5 @@
-[教程]: ./packages/file-conver/doc/教程.md
-[API接口文档]: ./packages/file-conver/doc/api/index.md
+[教程]: ./doc/教程.md
+[API接口文档]: ./doc/api/index.md
 
 [GitHub仓库]: https://github.com/GuoBinyong/file-conver
 [发行地址]: https://github.com/GuoBinyong/file-conver/releases

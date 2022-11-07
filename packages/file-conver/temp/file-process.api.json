@@ -1,0 +1,927 @@
+{
+  "metadata": {
+    "toolPackage": "@microsoft/api-extractor",
+    "toolVersion": "7.33.5",
+    "schemaVersion": 1010,
+    "oldestForwardsCompatibleVersion": 1001,
+    "tsdocConfig": {
+      "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
+      "noStandardTags": true,
+      "tagDefinitions": [
+        {
+          "tagName": "@alpha",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@beta",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@defaultValue",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@decorator",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@deprecated",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@eventProperty",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@example",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@experimental",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@inheritDoc",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@internal",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@label",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@link",
+          "syntaxKind": "inline",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@override",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@packageDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@param",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@privateRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@public",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@readonly",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@remarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@returns",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@sealed",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@see",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@throws",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@typeParam",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@virtual",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@betaDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@internalRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@preapproved",
+          "syntaxKind": "modifier"
+        }
+      ],
+      "supportForTags": {
+        "@alpha": true,
+        "@beta": true,
+        "@defaultValue": true,
+        "@decorator": true,
+        "@deprecated": true,
+        "@eventProperty": true,
+        "@example": true,
+        "@experimental": true,
+        "@inheritDoc": true,
+        "@internal": true,
+        "@label": true,
+        "@link": true,
+        "@override": true,
+        "@packageDocumentation": true,
+        "@param": true,
+        "@privateRemarks": true,
+        "@public": true,
+        "@readonly": true,
+        "@remarks": true,
+        "@returns": true,
+        "@sealed": true,
+        "@see": true,
+        "@throws": true,
+        "@typeParam": true,
+        "@virtual": true,
+        "@betaDocumentation": true,
+        "@internalRemarks": true,
+        "@preapproved": true
+      },
+      "reportUnsupportedHtmlElements": false
+    }
+  },
+  "kind": "Package",
+  "canonicalReference": "file-process!",
+  "docComment": "",
+  "name": "file-process",
+  "preserveMemberOrder": false,
+  "members": [
+    {
+      "kind": "EntryPoint",
+      "canonicalReference": "file-process!",
+      "name": "",
+      "preserveMemberOrder": false,
+      "members": [
+        {
+          "kind": "Function",
+          "canonicalReference": "file-process!createImportProcessor:function(1)",
+          "docComment": "/**\n * 创建替换者，用于将模块成员的使用方式改成 成员导入的使用方式\n *\n * @param objName - 模块名字\n *\n * @param importPath - 模块的导入路径\n *\n * @returns 返回一个文件处理器\n *\n * @example\n * ```js\n * createImportProcessor(\"Cesium\",\"cesium\")\n * ```\n *\n * 会将下面的代码\n * ```js\n * new Cesium.Cartesian3();\n * ```\n *\n * 修改成\n * ```js\n * import {Cartesian3} from \"cesium\"\n * new Cartesian3();\n * ```\n *\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function createImportProcessor(objName: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": ", importPath: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Reference",
+              "text": "FileProcessor",
+              "canonicalReference": "file-process!FileProcessor:type"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/processor.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 5,
+            "endIndex": 6
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "objName",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "importPath",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "createImportProcessor"
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "file-process!FileInfo:interface",
+          "docComment": "/**\n * 文件信息\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface FileInfo extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "FileMeta",
+              "canonicalReference": "file-process!FileMeta:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "fileUrlPath": "dist/file-processor.d.ts",
+          "releaseTag": "Public",
+          "name": "FileInfo",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "file-process!FileInfo#content:member",
+              "docComment": "/**\n * 文件的内容\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "content: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "content",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": [
+            {
+              "startIndex": 1,
+              "endIndex": 2
+            }
+          ]
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "file-process!FileMeta:interface",
+          "docComment": "/**\n * 文件的元数据\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface FileMeta "
+            }
+          ],
+          "fileUrlPath": "dist/file-processor.d.ts",
+          "releaseTag": "Public",
+          "name": "FileMeta",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "file-process!FileMeta#encoding:member",
+              "docComment": "/**\n * 文件的字符编码\n *\n * @defaultValue\n *\n * \"utf8\"\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "encoding?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "BufferEncoding",
+                  "canonicalReference": "!\"\\\"buffer\\\"\".__global.BufferEncoding:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "encoding",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "file-process!FileMeta#path:member",
+              "docComment": "/**\n * 文件的路径\n *\n * @remarks\n *\n * 不能是目录\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "path: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "path",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "file-process!FileMeta#root:member",
+              "docComment": "/**\n * 根目录\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "root: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "root",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "file-process!fileProcessor:function(1)",
+          "docComment": "/**\n * 批量处理文件\n *\n * @param config - \n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function fileProcessor(config: "
+            },
+            {
+              "kind": "Reference",
+              "text": "FileProcessorConfig",
+              "canonicalReference": "file-process!FileProcessorConfig:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<void>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/file-processor.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 5
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "config",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "fileProcessor"
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "file-process!FileProcessor:type",
+          "docComment": "/**\n * 文件处理器\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare type FileProcessor = "
+            },
+            {
+              "kind": "Content",
+              "text": "(preProcessResult: "
+            },
+            {
+              "kind": "Reference",
+              "text": "FileWriteInfo",
+              "canonicalReference": "file-process!FileWriteInfo:type"
+            },
+            {
+              "kind": "Content",
+              "text": "[], fileInfo: "
+            },
+            {
+              "kind": "Reference",
+              "text": "FileInfo",
+              "canonicalReference": "file-process!FileInfo:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", config: "
+            },
+            {
+              "kind": "Reference",
+              "text": "FileProcessorConfig",
+              "canonicalReference": "file-process!FileProcessorConfig:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ") => "
+            },
+            {
+              "kind": "Reference",
+              "text": "ProcessResult",
+              "canonicalReference": "file-process!ProcessResult:type"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/file-processor.d.ts",
+          "releaseTag": "Public",
+          "name": "FileProcessor",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 9
+          }
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "file-process!FileProcessorConfig:interface",
+          "docComment": "/**\n * 文件处理器的配置项\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface FileProcessorConfig "
+            }
+          ],
+          "fileUrlPath": "dist/file-processor.d.ts",
+          "releaseTag": "Public",
+          "name": "FileProcessorConfig",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "file-process!FileProcessorConfig#encoding:member",
+              "docComment": "/**\n * 输入文件的字符编码\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "encoding?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "BufferEncoding",
+                  "canonicalReference": "!\"\\\"buffer\\\"\".__global.BufferEncoding:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "encoding",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "file-process!FileProcessorConfig#input:member",
+              "docComment": "/**\n * 入口路径\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "input: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "input",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "file-process!FileProcessorConfig#output:member",
+              "docComment": "/**\n * 输出路径\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "output?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string | null"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "output",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "file-process!FileProcessorConfig#processors:member",
+              "docComment": "/**\n * 处理器列表\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "processors: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "FileProcessor",
+                  "canonicalReference": "file-process!FileProcessor:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "processors",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "file-process!fileReadWrite:function(1)",
+          "docComment": "/**\n * 文件读写\n *\n * @param fileMeta - \n *\n * @param processors - \n *\n * @param config - \n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function fileReadWrite(fileMeta: "
+            },
+            {
+              "kind": "Reference",
+              "text": "FileMeta",
+              "canonicalReference": "file-process!FileMeta:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", processors: "
+            },
+            {
+              "kind": "Reference",
+              "text": "FileProcessor",
+              "canonicalReference": "file-process!FileProcessor:type"
+            },
+            {
+              "kind": "Content",
+              "text": "[]"
+            },
+            {
+              "kind": "Content",
+              "text": ", config: "
+            },
+            {
+              "kind": "Reference",
+              "text": "FileProcessorConfig",
+              "canonicalReference": "file-process!FileProcessorConfig:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<void>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/file-processor.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 8,
+            "endIndex": 10
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "fileMeta",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "processors",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 5
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "config",
+              "parameterTypeTokenRange": {
+                "startIndex": 6,
+                "endIndex": 7
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "fileReadWrite"
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "file-process!FileWriteInfo:type",
+          "docComment": "/**\n * 文件写入选项\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare type FileWriteInfo = "
+            },
+            {
+              "kind": "Reference",
+              "text": "Partial",
+              "canonicalReference": "!Partial:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "FileMeta",
+              "canonicalReference": "file-process!FileMeta:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "> & "
+            },
+            {
+              "kind": "Reference",
+              "text": "Pick",
+              "canonicalReference": "!Pick:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "FileInfo",
+              "canonicalReference": "file-process!FileInfo:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", \"content\">"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/file-processor.d.ts",
+          "releaseTag": "Public",
+          "name": "FileWriteInfo",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 9
+          }
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "file-process!getAllFiles:function(1)",
+          "docComment": "/**\n * 获取路径 path 下的所有文件的路径\n *\n * @param path - \n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function getAllFiles(path: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Reference",
+              "text": "AsyncGenerator",
+              "canonicalReference": "!AsyncGenerator:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<string, void, unknown>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/fs-tools.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 5
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "path",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "getAllFiles"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "file-process!getAllFilesOfDir:function(1)",
+          "docComment": "/**\n * 获取目录 path 下的所有文件的路径\n *\n * @param path - \n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function getAllFilesOfDir(path: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Reference",
+              "text": "AsyncGenerator",
+              "canonicalReference": "!AsyncGenerator:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<string>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/fs-tools.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 5
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "path",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "getAllFilesOfDir"
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "file-process!ProcessResult:type",
+          "docComment": "/**\n * 处理结果\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare type ProcessResult = "
+            },
+            {
+              "kind": "Reference",
+              "text": "FileWriteInfo",
+              "canonicalReference": "file-process!FileWriteInfo:type"
+            },
+            {
+              "kind": "Content",
+              "text": "[] | "
+            },
+            {
+              "kind": "Reference",
+              "text": "FileWriteInfo",
+              "canonicalReference": "file-process!FileWriteInfo:type"
+            },
+            {
+              "kind": "Content",
+              "text": " | null | undefined"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/file-processor.d.ts",
+          "releaseTag": "Public",
+          "name": "ProcessResult",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          }
+        }
+      ]
+    }
+  ]
+}
