@@ -69,7 +69,7 @@ export function getAllFiles(path: string, filter?: Filter | null): AsyncGenerato
 export function getAllFilesOfDir(path: string, filter?: Filter | null): AsyncGenerator<string>;
 
 // @public
-export function getJoinPath(baseUrl: string | URL, path: string): string;
+export function getJoinPath(baseUrl: string | URL, ...paths: string[]): string;
 
 // @public
 export type RequiredFileConverConfig = {

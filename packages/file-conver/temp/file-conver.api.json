@@ -1293,7 +1293,7 @@
         {
           "kind": "Function",
           "canonicalReference": "file-conver!getJoinPath:function(1)",
-          "docComment": "/**\n * 获取路径\n *\n * @remarks\n *\n * 返回一个解码后的路径，即：可能带有中文 或 特殊字符的路径\n *\n * @param baseUrl - 参考的url\n *\n * @param path - 路径\n *\n * @returns 返回一个解码后的路径，即：可能带有中文 或 特殊字符的路径\n *\n * @example\n * ```\n * getJoinPath(import.meta.url,\"./src\")\n * ```\n *\n */\n",
+          "docComment": "/**\n * 获取一个不会被URL编码的且不带协议的纯路径\n *\n * @remarks\n *\n * 返回一个不会被URL编码的路径，即：可能带有中文 或 特殊字符的路径\n *\n * @param baseUrl - 参考的url\n *\n * @param paths - 路径片段\n *\n * @returns 返回一个不会被URL编码的路径，即：可能带有中文 或 特殊字符的路径\n *\n * @example\n * ```\n * getJoinPath(import.meta.url,\"./src\")\n * ```\n *\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -1310,11 +1310,11 @@
             },
             {
               "kind": "Content",
-              "text": ", path: "
+              "text": ", ...paths: "
             },
             {
               "kind": "Content",
-              "text": "string"
+              "text": "string[]"
             },
             {
               "kind": "Content",
@@ -1346,7 +1346,7 @@
               "isOptional": false
             },
             {
-              "parameterName": "path",
+              "parameterName": "paths",
               "parameterTypeTokenRange": {
                 "startIndex": 4,
                 "endIndex": 5

@@ -4,12 +4,12 @@
 
 ## getJoinPath() function
 
-获取路径
+获取一个不会被URL编码的且不带协议的纯路径
 
 <b>Signature:</b>
 
 ```typescript
-export declare function getJoinPath(baseUrl: string | URL, path: string): string;
+export declare function getJoinPath(baseUrl: string | URL, ...paths: string[]): string;
 ```
 
 ## Parameters
@@ -17,17 +17,17 @@ export declare function getJoinPath(baseUrl: string | URL, path: string): string
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  baseUrl | string \| URL | 参考的url |
-|  path | string | 路径 |
+|  paths | string\[\] | 路径片段 |
 
 <b>Returns:</b>
 
 string
 
-返回一个解码后的路径，即：可能带有中文 或 特殊字符的路径
+返回一个不会被URL编码的路径，即：可能带有中文 或 特殊字符的路径
 
 ## Remarks
 
-返回一个解码后的路径，即：可能带有中文 或 特殊字符的路径
+返回一个不会被URL编码的路径，即：可能带有中文 或 特殊字符的路径
 
 ## Example
 

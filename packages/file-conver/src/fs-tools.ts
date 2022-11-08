@@ -62,19 +62,20 @@ export async function* getAllFilesOfDir(path: string,filter?:Filter|null): Async
 
 
 /**
- * 获取路径
+ * 获取一个不会被URL编码的且不带协议的纯路径
  * @remarks
- * 返回一个解码后的路径，即：可能带有中文 或 特殊字符的路径
+ * 返回一个不会被URL编码的路径，即：可能带有中文 或 特殊字符的路径
  * 
  * @example
  * ```
  * getJoinPath(import.meta.url,"./src")
  * ```
  * @param baseUrl - 参考的url
- * @param path - 路径
- * @returns 返回一个解码后的路径，即：可能带有中文 或 特殊字符的路径
+ * @param paths - 路径片段
+ * @returns 返回一个不会被URL编码的路径，即：可能带有中文 或 特殊字符的路径
  */
-export function getJoinPath(baseUrl: string | URL, path: string) {
+export function getJoinPath(baseUrl: string | URL, ...paths: string[]) {
+    const path = join(...paths);
     const url = new URL(path, baseUrl);
     return decodeURI(url.pathname);
 }
