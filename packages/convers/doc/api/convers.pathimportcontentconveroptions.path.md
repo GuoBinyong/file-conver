@@ -11,3 +11,8 @@
 ```typescript
 path: RegExp | string;
 ```
+
+## Remarks
+
+当是正则对象时，正则必须带有全局 global 标志，即：`g`
+

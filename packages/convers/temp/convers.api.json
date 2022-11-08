@@ -476,7 +476,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@gby/convers!PathImportContentConverOptions#path:member",
-              "docComment": "/**\n * 查找路径时使用的正则 或 字符串\n */\n",
+              "docComment": "/**\n * 查找路径时使用的正则 或 字符串\n *\n * @remarks\n *\n * 当是正则对象时，正则必须带有全局 global 标志，即：`g`\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",

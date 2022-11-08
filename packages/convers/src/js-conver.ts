@@ -87,6 +87,8 @@ export type GetJsImportInfo = (matchingString: string, ...subString: any[]) => J
 export interface PathImportContentConverOptions {
     /**
      * 查找路径时使用的正则 或 字符串
+     * @remarks
+     * 当是正则对象时，正则必须带有全局 global 标志，即：`g`
      */
     path: RegExp | string;
     /**
@@ -128,6 +130,11 @@ export interface PathImportContentConverOptions {
  */
 export function createPathImportContentConver(options: PathImportContentConverOptions) {
     const { path: searchPath, getImportInfo, defaultExport, prefix, suffix } = options;
+
+    if (searchPath instanceof RegExp && !searchPath.flags.includes("g")){
+        throw `path选项的正则表达式没有带有 全局 标志 "g"`;
+    }
+
     const importStr = defaultExport ? `import` : `import * as`;
 
     /**
