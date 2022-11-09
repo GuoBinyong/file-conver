@@ -9,16 +9,14 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function createMemberImportContentConver(objName: string, importPath: string, type?: boolean): ContentConver<string>;
+export declare function createMemberImportContentConver(options: MemberImportContentConverOptions): ContentConver<string>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  objName | string | 模块名字 |
-|  importPath | string | 模块的导入路径 |
-|  type | boolean | <i>(Optional)</i> 是否仅作为类型导入，即 <code>import type {...} from &quot;...&quot;</code> |
+|  options | [MemberImportContentConverOptions](./convers.memberimportcontentconveroptions.md) | 选项 |
 
 <b>Returns:</b>
 
@@ -30,7 +28,7 @@ ContentConver&lt;string&gt;
 
 
 ```js
-createMemberImportContentConver("Cesium","cesium")
+createMemberImportContentConver({name:"Cesium",path:"cesium"})
 ```
 会将下面的代码
 

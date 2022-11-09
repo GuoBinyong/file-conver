@@ -9,7 +9,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function createPathImportContentConver(options: PathImportContentConverOptions): (content: string) => string;
+export declare function createPathImportContentConver(options: PathImportContentConverOptions): ContentConver<string>;
 ```
 
 ## Parameters
@@ -20,7 +20,7 @@ export declare function createPathImportContentConver(options: PathImportContent
 
 <b>Returns:</b>
 
-(content: string) =&gt; string
+ContentConver&lt;string&gt;
 
 
 ## Example

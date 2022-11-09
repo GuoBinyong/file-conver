@@ -5,12 +5,16 @@
 ```ts
 
 import type { ContentConver } from 'file-conver';
+import type { FileInfo } from 'file-conver';
 
 // @public
-export function createMemberImportContentConver(objName: string, importPath: string, type?: boolean): ContentConver<string>;
+export function createMemberExportContentConver(options: MemberExportContentConverOptions): ContentConver<string>;
 
 // @public
-export function createPathImportContentConver(options: PathImportContentConverOptions): (content: string) => string;
+export function createMemberImportContentConver(options: MemberImportContentConverOptions): ContentConver<string>;
+
+// @public
+export function createPathImportContentConver(options: PathImportContentConverOptions): ContentConver<string>;
 
 // @public
 export type GetJsImportInfo = (matchingString: string, ...subString: any[]) => JsImportInfo;
@@ -22,9 +26,28 @@ export interface JsImportInfo {
 }
 
 // @public
+export interface MemberExportContentConverOptions {
+    name: string;
+    onConver?: (fileInfo: FileInfo, members: string[]) => void;
+    prefix?: string | null;
+    suffix?: string | null;
+}
+
+// @public
+export interface MemberImportContentConverOptions {
+    name: string;
+    onConver?: (fileInfo: FileInfo, members: string[]) => void;
+    path: string;
+    type?: boolean;
+}
+
+// @public
 export interface PathImportContentConverOptions {
     defaultExport?: boolean | null;
     getImportInfo: GetJsImportInfo;
+    onConver?: (fileInfo: FileInfo, pathNameMap: {
+        [Path: string]: string;
+    }) => void;
     path: RegExp | string;
     prefix?: string | null;
     suffix?: string | null;

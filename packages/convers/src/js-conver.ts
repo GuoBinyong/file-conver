@@ -1,12 +1,39 @@
-import type { ContentConver } from "file-conver";
+import type { ContentConver ,FileInfo} from "file-conver";
 import { parse } from "node:path"
+
+
+
+/**
+ * createMemberImportContentConver 的选项
+ */
+export interface MemberImportContentConverOptions {
+    /**
+     * 模块名字
+     */
+    name: string;
+    /**
+     * 模块的导入路径
+     */
+    path: string;
+    /**
+     * 是否仅作为类型导入，即 `import type {...} from "..."`
+     */
+    type?: boolean;
+
+    /**
+     * 当发生转换时的回调函数
+     * @param fileInfo 被转换的文件的信息
+     * @param members 最终生成的导出的成员列表
+     */
+     onConver?:(fileInfo:FileInfo,members:string[])=>void;
+}
 
 
 /**
  * 创建 用于将模块成员的使用方式改成 成员导入的使用方式 的内容转换器
  * @example
  * ```js
- * createMemberImportContentConver("Cesium","cesium")
+ * createMemberImportContentConver({name:"Cesium",path:"cesium"})
  * ```
  * 会将下面的代码
  * ```js
@@ -18,19 +45,18 @@ import { parse } from "node:path"
  * new Cartesian3();
  * ```
  * 
- * @param objName - 模块名字
- * @param importPath - 模块的导入路径
- * @param type - 是否仅作为类型导入，即 `import type {...} from "..."`
+ * @param options - 选项
  * @returns 返回一个文件转换器
  */
-export function createMemberImportContentConver(objName: string, importPath: string, type?: boolean): ContentConver<string> {
+export function createMemberImportContentConver(options:MemberImportContentConverOptions): ContentConver<string> {
+    const {name: objName, path: importPath,type} = options;
+    // const cesiumRE = /(?<=^\s*|[^.\s]\s+)objName\s*\.\s*(\w+)\b(?!\s*=[^=])/g ;
+    const objNameRE = new RegExp(`(?<=^\\s*|[^.\\s]\\s+)${objName}\\s*\\.\\s*(\\w+)\\b(?!\\s*=[^=])`, "g");
+    const onConver = options.onConver ?? function(){};
 
-    return function memberImportContentConver(content: string) {
+    return function memberImportContentConver(content: string,fileInfo) {
 
-        // const cesiumRE = /(?<=\s)objName\s*\.\s*(\w+)\b(?!\s*=[^=])/g ;
-        const objNameRE = new RegExp(`(?<=\\s)${objName}\\s*\\.\\s*(\\w+)\\b(?!\\s*=[^=])`, "g");
-
-        const memberSet = new Set();
+        const memberSet = new Set<string>();
 
         let result = content.replaceAll(objNameRE, function (match, member) {
             memberSet.add(member)
@@ -42,6 +68,7 @@ export function createMemberImportContentConver(objName: string, importPath: str
             const importStr = type ? "import type" : "import";
             result = `${importStr} {${memberStr}} from "${importPath}";
 ${result}`;
+            onConver!(fileInfo,[...memberSet]);
         }
 
         return result
@@ -49,6 +76,90 @@ ${result}`;
     }
 }
 
+
+
+/**
+ * createMemberExportContentConver 的选项
+ */
+export interface MemberExportContentConverOptions {
+    /**
+     * 所要查找（即：需要被替换的）对象的名字
+     */
+    name: string;
+    /**
+     * 为导出成员生成的蹭变量名的前缀
+     * @remarks
+     * 防止和已有的变量重名
+     * @defaultValue "export_"
+     */
+    prefix?: string | null;
+    /**
+     * 为导出成员生成的蹭变量名的后缀
+     */
+    suffix?: string | null;
+    /**
+     * 当发生转换时的回调函数
+     * @remarks
+     * 防止和已有的变量重名
+     * @param fileInfo 被转换的文件的信息
+     * @param members 最终生成的导出的成员列表
+     */
+    onConver?:(fileInfo:FileInfo,members:string[])=>void;
+}
+
+
+/**
+ * 创建 用于将给对象添加成员的方式改成 成员导出的方式 的内容转换器
+ * @example
+ * ```js
+ * createMemberExportContentConver({name:"Cesium",prefix:"export_"})
+ * ```
+ * 会将下面的代码
+ * ```js
+ * Cesium.gby = function(){};
+ * ```
+ * 修改成
+ * ```js
+ * const export_gby = function(){};
+ * export {export_gby as gby}
+ * ```
+ * 
+ * @param options - 选项
+ * @returns 返回一个文件转换器
+ */
+export function createMemberExportContentConver(options:MemberExportContentConverOptions): ContentConver<string> {
+    let {name:objName,prefix,suffix,onConver} = options;
+    // const cesiumRE = /(?<=^|[;(){}:]\s*)objName\s*\.\s*(\w+)\b(?=\s*=[^=])/g ;
+    const objNameRE = new RegExp(`(?<=^|[;(){}:]\\s*)${objName}\\s*\\.\\s*(\\w+)\\b(?=\\s*=[^=])`, "g");
+    prefix = prefix ?? "export_";
+    suffix = suffix ?? "";
+    onConver = onConver ?? function(){};
+    return function memberExportContentConver(content: string,fileInfo) {
+
+        const memberMap:{[member: string]:string} = {};
+
+        let result = content.replaceAll(objNameRE, function (match, member) {
+            const exportVar = `${prefix}${member}${suffix}`;
+            memberMap[member] = exportVar;
+            return `const ${exportVar}`;
+        });
+
+        const memberVarList = Object.entries(memberMap);
+        if (memberVarList.length > 0) {
+            const exportList = memberVarList.map(([member, exportVar]) =>{
+                return `${exportVar} as ${member}`;
+            });
+            let exportStr = exportList.join(", ");
+            exportStr = `export {${exportStr}};`
+            result = `${result}
+${exportStr}`;
+        onConver!(fileInfo,Object.keys(memberMap));
+        }
+
+        return result
+
+    }
+}
 
 
 
@@ -109,6 +220,15 @@ export interface PathImportContentConverOptions {
      * 是否只导入默认导出项
      */
     defaultExport?: boolean | null;
+    
+    /**
+     * 当发生转换时的回调函数
+     * @remarks
+     * 防止和已有的变量重名
+     * @param fileInfo 被转换的文件的信息
+     * @param members 最终生成的导出的成员列表
+     */
+     onConver?:(fileInfo:FileInfo,pathNameMap:{ [Path: string]: string })=>void;
 }
 
 
@@ -128,19 +248,21 @@ export interface PathImportContentConverOptions {
  * @param options 
  * @returns 
  */
-export function createPathImportContentConver(options: PathImportContentConverOptions) {
-    const { path: searchPath, getImportInfo, defaultExport, prefix, suffix } = options;
+export function createPathImportContentConver(options: PathImportContentConverOptions): ContentConver<string>  {
+    const { path: searchPath, getImportInfo, defaultExport, prefix, suffix} = options;
 
-    if (searchPath instanceof RegExp && !searchPath.flags.includes("g")){
+    if (searchPath instanceof RegExp && !searchPath.flags.includes("g")) {
         throw `path选项的正则表达式没有带有 全局 标志 "g"`;
     }
 
     const importStr = defaultExport ? `import` : `import * as`;
 
+    const onConver = options.onConver ?? function(){};
+
     /**
      * 路径导入的内容转换器
      */
-    return function pathImport_ContentConver(content: string) {
+    return function pathImport_ContentConver(content,fileInfo) {
 
         // 路径名称映射
         const pathNameMap: { [Path: string]: string } = {};
@@ -190,6 +312,7 @@ export function createPathImportContentConver(options: PathImportContentConverOp
             const importStatements = importList.join("\n");
             content = `${importStatements}
 ${content}`;
+            onConver!(fileInfo,pathNameMap);
         }
 
         return content;

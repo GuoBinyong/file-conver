@@ -174,32 +174,17 @@
       "members": [
         {
           "kind": "Function",
-          "canonicalReference": "@gby/convers!createMemberImportContentConver:function(1)",
-          "docComment": "/**\n * 创建 用于将模块成员的使用方式改成 成员导入的使用方式 的内容转换器\n *\n * @param objName - 模块名字\n *\n * @param importPath - 模块的导入路径\n *\n * @param type - 是否仅作为类型导入，即 `import type {...} from \"...\"`\n *\n * @returns 返回一个文件转换器\n *\n * @example\n * ```js\n * createMemberImportContentConver(\"Cesium\",\"cesium\")\n * ```\n *\n * 会将下面的代码\n * ```js\n * new Cesium.Cartesian3();\n * ```\n *\n * 修改成\n * ```js\n * import {Cartesian3} from \"cesium\";\n * new Cartesian3();\n * ```\n *\n */\n",
+          "canonicalReference": "@gby/convers!createMemberExportContentConver:function(1)",
+          "docComment": "/**\n * 创建 用于将给对象添加成员的方式改成 成员导出的方式 的内容转换器\n *\n * @param options - 选项\n *\n * @returns 返回一个文件转换器\n *\n * @example\n * ```js\n * createMemberExportContentConver({name:\"Cesium\",prefix:\"export_\"})\n * ```\n *\n * 会将下面的代码\n * ```js\n * Cesium.gby = function(){};\n * ```\n *\n * 修改成\n * ```js\n * const export_gby = function(){};\n * export {export_gby as gby}\n * ```\n *\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export declare function createMemberImportContentConver(objName: "
+              "text": "export declare function createMemberExportContentConver(options: "
             },
             {
-              "kind": "Content",
-              "text": "string"
-            },
-            {
-              "kind": "Content",
-              "text": ", importPath: "
-            },
-            {
-              "kind": "Content",
-              "text": "string"
-            },
-            {
-              "kind": "Content",
-              "text": ", type?: "
-            },
-            {
-              "kind": "Content",
-              "text": "boolean"
+              "kind": "Reference",
+              "text": "MemberExportContentConverOptions",
+              "canonicalReference": "@gby/convers!MemberExportContentConverOptions:interface"
             },
             {
               "kind": "Content",
@@ -221,35 +206,70 @@
           ],
           "fileUrlPath": "dist/js-conver.d.ts",
           "returnTypeTokenRange": {
-            "startIndex": 7,
-            "endIndex": 9
+            "startIndex": 3,
+            "endIndex": 5
           },
           "releaseTag": "Public",
           "overloadIndex": 1,
           "parameters": [
             {
-              "parameterName": "objName",
+              "parameterName": "options",
               "parameterTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
               },
               "isOptional": false
+            }
+          ],
+          "name": "createMemberExportContentConver"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@gby/convers!createMemberImportContentConver:function(1)",
+          "docComment": "/**\n * 创建 用于将模块成员的使用方式改成 成员导入的使用方式 的内容转换器\n *\n * @param options - 选项\n *\n * @returns 返回一个文件转换器\n *\n * @example\n * ```js\n * createMemberImportContentConver({name:\"Cesium\",path:\"cesium\"})\n * ```\n *\n * 会将下面的代码\n * ```js\n * new Cesium.Cartesian3();\n * ```\n *\n * 修改成\n * ```js\n * import {Cartesian3} from \"cesium\";\n * new Cartesian3();\n * ```\n *\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function createMemberImportContentConver(options: "
             },
             {
-              "parameterName": "importPath",
+              "kind": "Reference",
+              "text": "MemberImportContentConverOptions",
+              "canonicalReference": "@gby/convers!MemberImportContentConverOptions:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Reference",
+              "text": "ContentConver",
+              "canonicalReference": "file-conver!ContentConver:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<string>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/js-conver.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 5
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "options",
               "parameterTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
+                "startIndex": 1,
+                "endIndex": 2
               },
               "isOptional": false
-            },
-            {
-              "parameterName": "type",
-              "parameterTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
-              },
-              "isOptional": true
             }
           ],
           "name": "createMemberImportContentConver"
@@ -273,8 +293,13 @@
               "text": "): "
             },
             {
+              "kind": "Reference",
+              "text": "ContentConver",
+              "canonicalReference": "file-conver!ContentConver:type"
+            },
+            {
               "kind": "Content",
-              "text": "(content: string) => string"
+              "text": "<string>"
             },
             {
               "kind": "Content",
@@ -284,7 +309,7 @@
           "fileUrlPath": "dist/js-conver.d.ts",
           "returnTypeTokenRange": {
             "startIndex": 3,
-            "endIndex": 4
+            "endIndex": 5
           },
           "releaseTag": "Public",
           "overloadIndex": 1,
@@ -405,6 +430,276 @@
         },
         {
           "kind": "Interface",
+          "canonicalReference": "@gby/convers!MemberExportContentConverOptions:interface",
+          "docComment": "/**\n * createMemberExportContentConver 的选项\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface MemberExportContentConverOptions "
+            }
+          ],
+          "fileUrlPath": "dist/js-conver.d.ts",
+          "releaseTag": "Public",
+          "name": "MemberExportContentConverOptions",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@gby/convers!MemberExportContentConverOptions#name:member",
+              "docComment": "/**\n * 所要查找（即：需要被替换的）对象的名字\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "name: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "name",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@gby/convers!MemberExportContentConverOptions#onConver:member",
+              "docComment": "/**\n * 当发生转换时的回调函数\n *\n * @remarks\n *\n * 防止和已有的变量重名\n *\n * @param fileInfo - 被转换的文件的信息\n *\n * @param members - 最终生成的导出的成员列表\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "onConver?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(fileInfo: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "FileInfo",
+                  "canonicalReference": "file-conver!FileInfo:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", members: string[]) => void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "onConver",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@gby/convers!MemberExportContentConverOptions#prefix:member",
+              "docComment": "/**\n * 为导出成员生成的蹭变量名的前缀\n *\n * @remarks\n *\n * 防止和已有的变量重名\n *\n * @defaultValue\n *\n * \"export_\"\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "prefix?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string | null"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "prefix",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@gby/convers!MemberExportContentConverOptions#suffix:member",
+              "docComment": "/**\n * 为导出成员生成的蹭变量名的后缀\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "suffix?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string | null"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "suffix",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@gby/convers!MemberImportContentConverOptions:interface",
+          "docComment": "/**\n * createMemberImportContentConver 的选项\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface MemberImportContentConverOptions "
+            }
+          ],
+          "fileUrlPath": "dist/js-conver.d.ts",
+          "releaseTag": "Public",
+          "name": "MemberImportContentConverOptions",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@gby/convers!MemberImportContentConverOptions#name:member",
+              "docComment": "/**\n * 模块名字\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "name: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "name",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@gby/convers!MemberImportContentConverOptions#onConver:member",
+              "docComment": "/**\n * 当发生转换时的回调函数\n *\n * @param fileInfo - 被转换的文件的信息\n *\n * @param members - 最终生成的导出的成员列表\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "onConver?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(fileInfo: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "FileInfo",
+                  "canonicalReference": "file-conver!FileInfo:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", members: string[]) => void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "onConver",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@gby/convers!MemberImportContentConverOptions#path:member",
+              "docComment": "/**\n * 模块的导入路径\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "path: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "path",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@gby/convers!MemberImportContentConverOptions#type:member",
+              "docComment": "/**\n * 是否仅作为类型导入，即 `import type {...} from \"...\"`\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "type?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "type",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
           "canonicalReference": "@gby/convers!PathImportContentConverOptions:interface",
           "docComment": "/**\n * createPathImportContentConver 的选项\n */\n",
           "excerptTokens": [
@@ -471,6 +766,42 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@gby/convers!PathImportContentConverOptions#onConver:member",
+              "docComment": "/**\n * 当发生转换时的回调函数\n *\n * @remarks\n *\n * 防止和已有的变量重名\n *\n * @param fileInfo - 被转换的文件的信息\n *\n * @param members - 最终生成的导出的成员列表\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "onConver?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(fileInfo: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "FileInfo",
+                  "canonicalReference": "file-conver!FileInfo:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", pathNameMap: {\n        [Path: string]: string;\n    }) => void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "onConver",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
               }
             },
             {
