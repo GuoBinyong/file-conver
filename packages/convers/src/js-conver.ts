@@ -50,15 +50,15 @@ export interface MemberImportContentConverOptions {
  */
 export function createMemberImportContentConver(options:MemberImportContentConverOptions): ContentConver<string> {
     const {name: objName, path: importPath,type} = options;
-    // const cesiumRE = /(?<=^\s*|[^.\s]\s+)objName\s*\.\s*(\w+)\b(?!\s*=[^=])/g ;
-    const objNameRE = new RegExp(`(?<=^\\s*|[^.\\s]\\s+)${objName}\\s*\\.\\s*(\\w+)\\b(?!\\s*=[^=])`, "g");
+    // const cesiumRE = /(?<=(^|[^."'\s_])\s*)\bobjName\s*\.\s*(\w+)\b(?!\s*=[^=])/g ;
+    const objNameRE = new RegExp(`(?<=(^|[^."'\\s_])\\s*)\\b${objName}\\s*\\.\\s*(\\w+)\\b(?!\\s*=[^=])`, "g");
     const onConver = options.onConver ?? function(){};
 
     return function memberImportContentConver(content: string,fileInfo) {
 
         const memberSet = new Set<string>();
 
-        let result = content.replaceAll(objNameRE, function (match, member) {
+        let result = content.replaceAll(objNameRE, function (match,preStr, member) {
             memberSet.add(member)
             return member
         });
@@ -129,8 +129,8 @@ export interface MemberExportContentConverOptions {
  */
 export function createMemberExportContentConver(options:MemberExportContentConverOptions): ContentConver<string> {
     let {name:objName,prefix,suffix,onConver} = options;
-    // const cesiumRE = /(?<=^|[;(){}:]\s*)objName\s*\.\s*(\w+)\b(?=\s*=[^=])/g ;
-    const objNameRE = new RegExp(`(?<=^|[;(){}:]\\s*)${objName}\\s*\\.\\s*(\\w+)\\b(?=\\s*=[^=])`, "g");
+    // const cesiumRE = /(?<=(^|[;(){}:])\s*)\bobjName\s*\.\s*(\w+)\b(?=\s*=[^=])/g ;
+    const objNameRE = new RegExp(`(?<=(^|[;(){}:])\\s*)\\b${objName}\\s*\\.\\s*(\\w+)\\b(?=\\s*=[^=])`, "g");
     prefix = prefix ?? "export_";
     suffix = suffix ?? "";
     onConver = onConver ?? function(){};
@@ -138,7 +138,7 @@ export function createMemberExportContentConver(options:MemberExportContentConve
 
         const memberMap:{[member: string]:string} = {};
 
-        let result = content.replaceAll(objNameRE, function (match, member) {
+        let result = content.replaceAll(objNameRE, function (match, preStr, member) {
             const exportVar = `${prefix}${member}${suffix}`;
             memberMap[member] = exportVar;
             return `const ${exportVar}`;
