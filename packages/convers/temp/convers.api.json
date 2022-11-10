@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.33.5",
+    "toolVersion": "7.33.6",
     "schemaVersion": 1010,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -161,20 +161,20 @@
     }
   },
   "kind": "Package",
-  "canonicalReference": "@gby/convers!",
+  "canonicalReference": "@file-conver/convers!",
   "docComment": "",
-  "name": "@gby/convers",
+  "name": "@file-conver/convers",
   "preserveMemberOrder": false,
   "members": [
     {
       "kind": "EntryPoint",
-      "canonicalReference": "@gby/convers!",
+      "canonicalReference": "@file-conver/convers!",
       "name": "",
       "preserveMemberOrder": false,
       "members": [
         {
           "kind": "Function",
-          "canonicalReference": "@gby/convers!createMemberExportContentConver:function(1)",
+          "canonicalReference": "@file-conver/convers!createMemberExportContentConver:function(1)",
           "docComment": "/**\n * 创建 用于将给对象添加成员的方式改成 成员导出的方式 的内容转换器\n *\n * @param options - 选项\n *\n * @returns 返回一个文件转换器\n *\n * @example\n * ```js\n * createMemberExportContentConver({name:\"Cesium\",prefix:\"export_\"})\n * ```\n *\n * 会将下面的代码\n * ```js\n * Cesium.gby = function(){};\n * ```\n *\n * 修改成\n * ```js\n * const export_gby = function(){};\n * export {export_gby as gby}\n * ```\n *\n */\n",
           "excerptTokens": [
             {
@@ -184,7 +184,7 @@
             {
               "kind": "Reference",
               "text": "MemberExportContentConverOptions",
-              "canonicalReference": "@gby/convers!MemberExportContentConverOptions:interface"
+              "canonicalReference": "@file-conver/convers!MemberExportContentConverOptions:interface"
             },
             {
               "kind": "Content",
@@ -225,8 +225,8 @@
         },
         {
           "kind": "Function",
-          "canonicalReference": "@gby/convers!createMemberImportContentConver:function(1)",
-          "docComment": "/**\n * 创建 用于将模块成员的使用方式改成 成员导入的使用方式 的内容转换器\n *\n * @param options - 选项\n *\n * @returns 返回一个文件转换器\n *\n * @example\n * ```js\n * createMemberImportContentConver({name:\"Cesium\",path:\"cesium\"})\n * ```\n *\n * 会将下面的代码\n * ```js\n * new Cesium.Cartesian3();\n * ```\n *\n * 修改成\n * ```js\n * import {Cartesian3} from \"cesium\";\n * new Cartesian3();\n * ```\n *\n */\n",
+          "canonicalReference": "@file-conver/convers!createMemberImportContentConver:function(1)",
+          "docComment": "/**\n * 创建 用于将模块成员的使用方式改成 成员导入的使用方式 的内容转换器\n *\n * @param options - 选项\n *\n * @returns 返回一个文件转换器\n *\n * @example\n * ```js\n * createMemberImportContentConver({name:\"Cesium\",path:\"cesium\"})\n * ```\n *\n * 会将下面的代码\n * ```js\n * new Cesium.Cartesian1();\n * const Cartesian2 = Cesium.Cartesian2;\n * const {Cartesian3,Cartesian4:Cartesian4_1} = Cesium;\n * ```\n *\n * 修改成\n * ```js\n * import {Cartesian1,Cartesian2,Cartesian3,Cartesian4} from \"cesium\";\n * new Cartesian1();\n * new Cartesian4_1 = Cartesian4;\n * ```\n *\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -235,7 +235,7 @@
             {
               "kind": "Reference",
               "text": "MemberImportContentConverOptions",
-              "canonicalReference": "@gby/convers!MemberImportContentConverOptions:interface"
+              "canonicalReference": "@file-conver/convers!MemberImportContentConverOptions:interface"
             },
             {
               "kind": "Content",
@@ -276,7 +276,7 @@
         },
         {
           "kind": "Function",
-          "canonicalReference": "@gby/convers!createPathImportContentConver:function(1)",
+          "canonicalReference": "@file-conver/convers!createPathImportContentConver:function(1)",
           "docComment": "/**\n * 创建 用于将 直接使用 路径的方式替换成 导入的方式的 内容转换器\n *\n * @param options - \n *\n * @returns \n *\n * @example\n *\n * 可用于如下内容的转换\n * ```js\n * imgDom.src = \"/image/icon.png\"\n * ```\n *\n * 修改成\n * ```js\n * import icon from \"/image/icon.png\";\n * imgDom.src = icon\n * ```\n *\n */\n",
           "excerptTokens": [
             {
@@ -286,7 +286,7 @@
             {
               "kind": "Reference",
               "text": "PathImportContentConverOptions",
-              "canonicalReference": "@gby/convers!PathImportContentConverOptions:interface"
+              "canonicalReference": "@file-conver/convers!PathImportContentConverOptions:interface"
             },
             {
               "kind": "Content",
@@ -327,7 +327,7 @@
         },
         {
           "kind": "TypeAlias",
-          "canonicalReference": "@gby/convers!GetJsImportInfo:type",
+          "canonicalReference": "@file-conver/convers!GetJsImportInfo:type",
           "docComment": "/**\n * 获取js 导入信息的回调函数类型\n *\n * @param matchingString - 正则匹配的完整字符串\n *\n * @param subString - 正则捕获的子字符串\n *\n * @returns 返回导入所需求的信息\n */\n",
           "excerptTokens": [
             {
@@ -341,7 +341,7 @@
             {
               "kind": "Reference",
               "text": "JsImportInfo",
-              "canonicalReference": "@gby/convers!JsImportInfo:interface"
+              "canonicalReference": "@file-conver/convers!JsImportInfo:interface"
             },
             {
               "kind": "Content",
@@ -358,7 +358,7 @@
         },
         {
           "kind": "Interface",
-          "canonicalReference": "@gby/convers!JsImportInfo:interface",
+          "canonicalReference": "@file-conver/convers!JsImportInfo:interface",
           "docComment": "/**\n * js资源导入信息\n */\n",
           "excerptTokens": [
             {
@@ -373,7 +373,7 @@
           "members": [
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@gby/convers!JsImportInfo#name:member",
+              "canonicalReference": "@file-conver/convers!JsImportInfo#name:member",
               "docComment": "/**\n * 导入的模块名字\n */\n",
               "excerptTokens": [
                 {
@@ -400,7 +400,7 @@
             },
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@gby/convers!JsImportInfo#path:member",
+              "canonicalReference": "@file-conver/convers!JsImportInfo#path:member",
               "docComment": "/**\n * 导入的路径\n */\n",
               "excerptTokens": [
                 {
@@ -430,7 +430,7 @@
         },
         {
           "kind": "Interface",
-          "canonicalReference": "@gby/convers!MemberExportContentConverOptions:interface",
+          "canonicalReference": "@file-conver/convers!MemberExportContentConverOptions:interface",
           "docComment": "/**\n * createMemberExportContentConver 的选项\n */\n",
           "excerptTokens": [
             {
@@ -445,7 +445,7 @@
           "members": [
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@gby/convers!MemberExportContentConverOptions#name:member",
+              "canonicalReference": "@file-conver/convers!MemberExportContentConverOptions#name:member",
               "docComment": "/**\n * 所要查找（即：需要被替换的）对象的名字\n */\n",
               "excerptTokens": [
                 {
@@ -472,7 +472,7 @@
             },
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@gby/convers!MemberExportContentConverOptions#onConver:member",
+              "canonicalReference": "@file-conver/convers!MemberExportContentConverOptions#onConver:member",
               "docComment": "/**\n * 当发生转换时的回调函数\n *\n * @remarks\n *\n * 防止和已有的变量重名\n *\n * @param fileInfo - 被转换的文件的信息\n *\n * @param members - 最终生成的导出的成员列表\n */\n",
               "excerptTokens": [
                 {
@@ -508,7 +508,7 @@
             },
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@gby/convers!MemberExportContentConverOptions#prefix:member",
+              "canonicalReference": "@file-conver/convers!MemberExportContentConverOptions#prefix:member",
               "docComment": "/**\n * 为导出成员生成的蹭变量名的前缀\n *\n * @remarks\n *\n * 防止和已有的变量重名\n *\n * @defaultValue\n *\n * \"export_\"\n */\n",
               "excerptTokens": [
                 {
@@ -535,7 +535,7 @@
             },
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@gby/convers!MemberExportContentConverOptions#suffix:member",
+              "canonicalReference": "@file-conver/convers!MemberExportContentConverOptions#suffix:member",
               "docComment": "/**\n * 为导出成员生成的蹭变量名的后缀\n */\n",
               "excerptTokens": [
                 {
@@ -565,7 +565,7 @@
         },
         {
           "kind": "Interface",
-          "canonicalReference": "@gby/convers!MemberImportContentConverOptions:interface",
+          "canonicalReference": "@file-conver/convers!MemberImportContentConverOptions:interface",
           "docComment": "/**\n * createMemberImportContentConver 的选项\n */\n",
           "excerptTokens": [
             {
@@ -580,7 +580,7 @@
           "members": [
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@gby/convers!MemberImportContentConverOptions#name:member",
+              "canonicalReference": "@file-conver/convers!MemberImportContentConverOptions#name:member",
               "docComment": "/**\n * 模块名字\n */\n",
               "excerptTokens": [
                 {
@@ -607,7 +607,7 @@
             },
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@gby/convers!MemberImportContentConverOptions#onConver:member",
+              "canonicalReference": "@file-conver/convers!MemberImportContentConverOptions#onConver:member",
               "docComment": "/**\n * 当发生转换时的回调函数\n *\n * @param fileInfo - 被转换的文件的信息\n *\n * @param members - 最终生成的导出的成员列表\n */\n",
               "excerptTokens": [
                 {
@@ -643,7 +643,7 @@
             },
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@gby/convers!MemberImportContentConverOptions#path:member",
+              "canonicalReference": "@file-conver/convers!MemberImportContentConverOptions#path:member",
               "docComment": "/**\n * 模块的导入路径\n */\n",
               "excerptTokens": [
                 {
@@ -670,7 +670,7 @@
             },
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@gby/convers!MemberImportContentConverOptions#type:member",
+              "canonicalReference": "@file-conver/convers!MemberImportContentConverOptions#type:member",
               "docComment": "/**\n * 是否仅作为类型导入，即 `import type {...} from \"...\"`\n */\n",
               "excerptTokens": [
                 {
@@ -700,7 +700,7 @@
         },
         {
           "kind": "Interface",
-          "canonicalReference": "@gby/convers!PathImportContentConverOptions:interface",
+          "canonicalReference": "@file-conver/convers!PathImportContentConverOptions:interface",
           "docComment": "/**\n * createPathImportContentConver 的选项\n */\n",
           "excerptTokens": [
             {
@@ -715,7 +715,7 @@
           "members": [
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@gby/convers!PathImportContentConverOptions#defaultExport:member",
+              "canonicalReference": "@file-conver/convers!PathImportContentConverOptions#defaultExport:member",
               "docComment": "/**\n * 是否只导入默认导出项\n */\n",
               "excerptTokens": [
                 {
@@ -742,7 +742,7 @@
             },
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@gby/convers!PathImportContentConverOptions#getImportInfo:member",
+              "canonicalReference": "@file-conver/convers!PathImportContentConverOptions#getImportInfo:member",
               "docComment": "/**\n * 获取 js 导入语句的信息\n *\n * @remarks\n *\n * 会传入与 pathRE 所匹配的字符串\n */\n",
               "excerptTokens": [
                 {
@@ -752,7 +752,7 @@
                 {
                   "kind": "Reference",
                   "text": "GetJsImportInfo",
-                  "canonicalReference": "@gby/convers!GetJsImportInfo:type"
+                  "canonicalReference": "@file-conver/convers!GetJsImportInfo:type"
                 },
                 {
                   "kind": "Content",
@@ -770,7 +770,7 @@
             },
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@gby/convers!PathImportContentConverOptions#onConver:member",
+              "canonicalReference": "@file-conver/convers!PathImportContentConverOptions#onConver:member",
               "docComment": "/**\n * 当发生转换时的回调函数\n *\n * @remarks\n *\n * 防止和已有的变量重名\n *\n * @param fileInfo - 被转换的文件的信息\n *\n * @param members - 最终生成的导出的成员列表\n */\n",
               "excerptTokens": [
                 {
@@ -806,7 +806,7 @@
             },
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@gby/convers!PathImportContentConverOptions#path:member",
+              "canonicalReference": "@file-conver/convers!PathImportContentConverOptions#path:member",
               "docComment": "/**\n * 查找路径时使用的正则 或 字符串\n *\n * @remarks\n *\n * 当是正则对象时，正则必须带有全局 global 标志，即：`g`\n */\n",
               "excerptTokens": [
                 {
@@ -838,7 +838,7 @@
             },
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@gby/convers!PathImportContentConverOptions#prefix:member",
+              "canonicalReference": "@file-conver/convers!PathImportContentConverOptions#prefix:member",
               "docComment": "/**\n * 导入变量名的前缀\n */\n",
               "excerptTokens": [
                 {
@@ -865,7 +865,7 @@
             },
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@gby/convers!PathImportContentConverOptions#suffix:member",
+              "canonicalReference": "@file-conver/convers!PathImportContentConverOptions#suffix:member",
               "docComment": "/**\n * 导入变量名的后缀\n */\n",
               "excerptTokens": [
                 {

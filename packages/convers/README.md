@@ -66,7 +66,7 @@ file-conver 用于批量处理文件，可自定义处理逻辑。它提供了�
 # 3. 安装方式
 通过 npm （或 yarn、pnpm 等包管理器）安装
 ```
-npm install @gby/convers
+npm install @file-conver/convers
 ```
 
 

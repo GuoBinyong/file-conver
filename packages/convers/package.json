@@ -1,6 +1,6 @@
 {
-  "name": "@gby/convers",
-  "version": "1.5.3",
+  "name": "@file-conver/convers",
+  "version": "1.5.4",
   "description": "convers 提供了一些常用的 file-conver 转换器",
   "main": "./dist/convers.js",
   "module": "./dist/convers.mjs",
