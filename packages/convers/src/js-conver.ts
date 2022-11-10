@@ -217,7 +217,7 @@ export function createMemberExportContentConver(options:MemberExportContentConve
     onConver = onConver ?? function(){};
     return function memberExportContentConver(content: string,fileInfo) {
 
-        const memberMap:{[member: string]:string} = {};
+        const memberMap: Record<string, string> = {};
 
         let result = content.replaceAll(objNameRE, function (match, preStr, member) {
             const exportVar = `${prefix}${member}${suffix}`;
@@ -346,9 +346,9 @@ export function createPathImportContentConver(options: PathImportContentConverOp
     return function pathImport_ContentConver(content,fileInfo) {
 
         // 路径名称映射
-        const pathNameMap: { [Path: string]: string } = {};
+        const pathNameMap: Record<string, string> = {};
         // 名字计数映射
-        const nameCountMap: { [Name: string]: number } = {};
+        const nameCountMap: Record<string, number> = {};
 
         content = content.replaceAll(searchPath, function (...subString) {
             let { path, name } = getImportInfo(...subString);
