@@ -37,12 +37,15 @@ export interface MemberImportContentConverOptions {
  * ```
  * 会将下面的代码
  * ```js
- * new Cesium.Cartesian3();
+ * new Cesium.Cartesian1();
+ * const Cartesian2 = Cesium.Cartesian2;
+ * const {Cartesian3,Cartesian4:Cartesian4_1} = Cesium;
  * ```
  * 修改成
  * ```js
- * import {Cartesian3} from "cesium";
- * new Cartesian3();
+ * import {Cartesian1,Cartesian2,Cartesian3,Cartesian4} from "cesium";
+ * new Cartesian1();
+ * new Cartesian4_1 = Cartesian4;
  * ```
  * 
  * @param options - 选项
@@ -50,31 +53,109 @@ export interface MemberImportContentConverOptions {
  */
 export function createMemberImportContentConver(options:MemberImportContentConverOptions): ContentConver<string> {
     const {name: objName, path: importPath,type} = options;
-    // const cesiumRE = /(?<=(^|[^."'\s_])\s*)\bobjName\s*\.\s*(\w+)\b(?!\s*=[^=])/g ;
-    const objNameRE = new RegExp(`(?<=(^|[^."'\\s_])\\s*)\\b${objName}\\s*\\.\\s*(\\w+)\\b(?!\\s*=[^=])`, "g");
+
+
+    /**
+     * 成员访问正则
+     * 用于匹配成员访问
+     * ```
+     * objName.member
+     * ```
+     * 但不会匹配成员赋值
+     * ```
+     * objName.member = xxx
+     * ```
+     */
+    // const getMemberRE = /(?<=(^|[^."'\s_])\s*)\bobjName\s*\.\s*(\w+)\b(?!\s*=[^=])/g ;
+    const getMemberRE = new RegExp(`(?<=(^|[^."'\\s_])\\s*)\\b${objName}\\s*\\.\\s*(\\w+)\\b(?!\\s*=[^=])`, "g");
+
+
+
+    /**
+     * 创建成员变量正则
+     * 用于匹配
+     * ```js
+     * const member = objName.member
+     * ```
+     */
+    //  const createObjMemberRE = /(const|var|let)\s+([$a-zA-Z]\w*)\s*=\s*objName\s*\.\2\b(?=\s*([\n;)\]{}]|\/\/|\/\*))/g;
+     const createObjMemberRE = new RegExp(`(const|var|let)\\s+([$a-zA-Z]\\w*)\\s*=\\s*${objName}\\s*\\.\\2\\b(?=\\s*([\\n;)\\]{}]|\\/\\/|\\/\\*))`,"g");
+    
+     /**
+      * 解构成员变量正则
+      * 用于匹配
+      * ```js
+      * const {member1,member2:member2} = objName
+      * ```
+      */
+    //  const decomposerMemberRE_Strict = /(const|var|let)\s+\{([$a-zA-Z]\w*)(:([$a-zA-Z]\w*))?\b(\s*,\s*([$a-zA-Z]\w*)(:([$a-zA-Z]\w*))?)*\s*,\s*\}\s*=\s*objName\b(?=\s*([\n;)\]{}]|\/\/|\/\*))/g;  // 严格的正则
+    //  const decomposerMemberRE = /(const|var|let)\s+\{([\s,:\w$]+)\}\s*=\s*objName\b(?=\s*([\n;)\]{}]|\/\/|\/\*))/g;
+     const decomposerMemberRE = new RegExp(`(const|var|let)\\s+\\{([\\s,:\\w$]+)\\}\\s*=\\s*${objName}\\b(?=\\s*([\\n;)\\]{}]|\\/\\/|\\/\\*))`,"g");
+
+
+
+
     const onConver = options.onConver ?? function(){};
 
     return function memberImportContentConver(content: string,fileInfo) {
 
         const memberSet = new Set<string>();
 
-        let result = content.replaceAll(objNameRE, function (match,preStr, member) {
+        // 成员访问
+        content = content.replaceAll(getMemberRE, function (match,preStr, member) {
             memberSet.add(member)
             return member
         });
 
+
+                
+        // 创建成员变量
+        content = content.replaceAll(createObjMemberRE, function (match, keyword, member) {
+            memberSet.add(member);
+            return "";
+        });
+        
+        // 解构成员变量
+        content = content.replaceAll(decomposerMemberRE, function (match, keyword, memberListStr) {
+            memberListStr = memberListStr.replaceAll(/\s+/g,""); // 去空格
+            const kvList = memberListStr.splice(","); // 拆分
+
+            const localStatementArr = [];
+
+            for (const kvStr of kvList){
+                if (kvStr == "") continue;
+                
+                let member = kvStr;
+                if (kvStr.includes(":")){
+                   const kvPair = kvStr.splice(":");
+                   member = kvPair[0];
+                   if (member == "") continue;
+                   const localName = kvPair[1];
+                   const localStatement = `${keyword} ${localName} = ${member}`;
+                   localStatementArr.push(localStatement);
+                }
+
+                memberSet.add(member);
+            }
+
+           return localStatementArr.join(";");
+        });
+        
+
         if (memberSet.size > 0) {
             const memberStr = Array.from(memberSet).join(", ");
             const importStr = type ? "import type" : "import";
-            result = `${importStr} {${memberStr}} from "${importPath}";
-${result}`;
+            content = `${importStr} {${memberStr}} from "${importPath}";
+${content}`;
             onConver!(fileInfo,[...memberSet]);
         }
 
-        return result
+        return content
 
     }
 }
+
+
 
 
 
