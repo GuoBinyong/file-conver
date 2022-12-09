@@ -116,6 +116,7 @@ export type FileWriteInfo = Partial<Omit<FileMeta,"path">> & Pick<FileInfo, "con
 /**
  * 批量处理文件
  * @param config 
+ * @returns 返回一个表示是否完成的 Promise
  */
  export async function fileConver(config: FileConverConfig) {
     const { input, encoding,filter ,output, outEncoding,outMode,conver } = config;
@@ -124,17 +125,23 @@ export type FileWriteInfo = Partial<Omit<FileMeta,"path">> & Pick<FileInfo, "con
     const finalConfig = { ...config, input, encoding: inEncoding, output: output ?? input, outEncoding: outEncoding ?? inEncoding,outMode:outMode ?? undefined,conver:convers};
 
     const files = getAllFiles(input,filter);
+
+    const writePromiseArr:Promise<PromiseSettledResult<void>[]>[] = []
     for await (const path of files) {
         const filePath = relative(input, path);
         const pathInfo = parse(filePath);
 
-        fileReadWrite({
+        const writePro = fileReadWrite({
             ...pathInfo,
             root: input,
             path,
             encoding: inEncoding,
-        }, finalConfig)
+        }, finalConfig);
+
+        writePromiseArr.push(writePro);
     }
+
+    return Promise.allSettled(writePromiseArr);
 }
 
 
@@ -172,6 +179,7 @@ export type RequiredFileConverConfig = {
  * @param fileMeta 
  * @param convers 
  * @param config 
+ * @returns 返回一个表示是否完成的 Promise
  */
 export async function fileReadWrite(fileMeta: FileMeta, config: RequiredFileConverConfig) {
     const { dir,base,path, encoding } = fileMeta;
@@ -186,6 +194,8 @@ export async function fileReadWrite(fileMeta: FileMeta, config: RequiredFileConv
         const result = await conver(writeInfoArr, inputFileInfo, config);
         writeInfoArr = result ? (Array.isArray(result) ? result : [result]) : [];
     }
+
+    const writePromiseArr:Promise<void>[] = [];
 
     for (const info of writeInfoArr) {
         let { root: wRoot,dir:wDir,name:wName,ext:wExt,base:wBase, content: wContent, encoding: wEncoding,mode:wModel } = info;
@@ -213,8 +223,10 @@ export async function fileReadWrite(fileMeta: FileMeta, config: RequiredFileConv
         if (!existsSync(outDir)) {
             mkdirSync(outDir, { recursive: true })
         }
-        writeFile(outPath, wContent, { encoding: wEncoding,mode:wModel});
+        const writePro = writeFile(outPath, wContent, { encoding: wEncoding,mode:wModel});
+        writePromiseArr.push(writePro);
     }
 
+    return Promise.allSettled(writePromiseArr);
 }
 
