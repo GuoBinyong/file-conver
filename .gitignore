@@ -51,3 +51,7 @@ selenium-debug.log
 # 应用安装包
 *.apk
 *.ipa
+
+
+# 独立的包
+/separate/
