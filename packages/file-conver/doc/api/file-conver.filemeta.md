@@ -9,7 +9,7 @@
 <b>Signature:</b>
 
 ```typescript
-export interface FileMeta extends ParsedPath 
+export declare interface FileMeta extends ParsedPath 
 ```
 <b>Extends:</b> ParsedPath
 

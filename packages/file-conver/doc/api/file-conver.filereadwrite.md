@@ -9,7 +9,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function fileReadWrite(fileMeta: FileMeta, config: RequiredFileConverConfig): Promise<void>;
+export declare function fileReadWrite(fileMeta: FileMeta, config: RequiredFileConverConfig): Promise<PromiseSettledResult<void>[]>;
 ```
 
 ## Parameters
@@ -21,5 +21,7 @@ export declare function fileReadWrite(fileMeta: FileMeta, config: RequiredFileCo
 
 <b>Returns:</b>
 
-Promise&lt;void&gt;
+Promise&lt;PromiseSettledResult&lt;void&gt;\[\]&gt;
+
+返回一个表示是否完成的 Promise
 

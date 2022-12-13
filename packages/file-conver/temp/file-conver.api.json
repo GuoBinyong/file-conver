@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.33.5",
+    "toolVersion": "7.33.7",
     "schemaVersion": 1010,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -226,7 +226,7 @@
               "text": ";"
             }
           ],
-          "fileUrlPath": "dist/conver.d.ts",
+          "fileUrlPath": "dist/file-conver.d.ts",
           "releaseTag": "Public",
           "name": "ContentConver",
           "typeParameters": [
@@ -337,7 +337,7 @@
               "text": ";"
             }
           ],
-          "fileUrlPath": "dist/conver.d.ts",
+          "fileUrlPath": "dist/file-conver.d.ts",
           "returnTypeTokenRange": {
             "startIndex": 8,
             "endIndex": 9
@@ -403,7 +403,7 @@
         {
           "kind": "Function",
           "canonicalReference": "file-conver!fileConver:function(1)",
-          "docComment": "/**\n * 批量处理文件\n *\n * @param config - \n */\n",
+          "docComment": "/**\n * 批量处理文件\n *\n * @param config - \n *\n * @returns 返回一个表示是否完成的 Promise\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -425,7 +425,25 @@
             },
             {
               "kind": "Content",
-              "text": "<void>"
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "PromiseSettledResult",
+              "canonicalReference": "!PromiseSettledResult:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "PromiseSettledResult",
+              "canonicalReference": "!PromiseSettledResult:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<void>[]>[]>"
             },
             {
               "kind": "Content",
@@ -435,7 +453,7 @@
           "fileUrlPath": "dist/file-conver.d.ts",
           "returnTypeTokenRange": {
             "startIndex": 3,
-            "endIndex": 5
+            "endIndex": 9
           },
           "releaseTag": "Public",
           "overloadIndex": 1,
@@ -538,7 +556,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export interface FileConverConfig "
+              "text": "export declare interface FileConverConfig "
             }
           ],
           "fileUrlPath": "dist/file-conver.d.ts",
@@ -802,7 +820,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export interface FileInfo extends "
+              "text": "export declare interface FileInfo extends "
             },
             {
               "kind": "Reference",
@@ -862,7 +880,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export interface FileMeta extends "
+              "text": "export declare interface FileMeta extends "
             },
             {
               "kind": "Reference",
@@ -981,7 +999,7 @@
         {
           "kind": "Function",
           "canonicalReference": "file-conver!fileReadWrite:function(1)",
-          "docComment": "/**\n * 文件读写\n *\n * @param fileMeta - \n *\n * @param convers - \n *\n * @param config - \n */\n",
+          "docComment": "/**\n * 文件读写\n *\n * @param fileMeta - \n *\n * @param convers - \n *\n * @param config - \n *\n * @returns 返回一个表示是否完成的 Promise\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -1012,7 +1030,16 @@
             },
             {
               "kind": "Content",
-              "text": "<void>"
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "PromiseSettledResult",
+              "canonicalReference": "!PromiseSettledResult:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<void>[]>"
             },
             {
               "kind": "Content",
@@ -1022,7 +1049,7 @@
           "fileUrlPath": "dist/file-conver.d.ts",
           "returnTypeTokenRange": {
             "startIndex": 5,
-            "endIndex": 7
+            "endIndex": 9
           },
           "releaseTag": "Public",
           "overloadIndex": 1,
@@ -1140,7 +1167,7 @@
               "text": ";"
             }
           ],
-          "fileUrlPath": "dist/fs-tools.d.ts",
+          "fileUrlPath": "dist/file-conver.d.ts",
           "releaseTag": "Public",
           "name": "Filter",
           "typeTokenRange": {
@@ -1192,7 +1219,7 @@
               "text": ";"
             }
           ],
-          "fileUrlPath": "dist/fs-tools.d.ts",
+          "fileUrlPath": "dist/file-conver.d.ts",
           "returnTypeTokenRange": {
             "startIndex": 6,
             "endIndex": 8
@@ -1263,7 +1290,7 @@
               "text": ";"
             }
           ],
-          "fileUrlPath": "dist/fs-tools.d.ts",
+          "fileUrlPath": "dist/file-conver.d.ts",
           "returnTypeTokenRange": {
             "startIndex": 6,
             "endIndex": 8
@@ -1329,7 +1356,7 @@
               "text": ";"
             }
           ],
-          "fileUrlPath": "dist/fs-tools.d.ts",
+          "fileUrlPath": "dist/file-conver.d.ts",
           "returnTypeTokenRange": {
             "startIndex": 6,
             "endIndex": 7

@@ -9,7 +9,7 @@
 <b>Signature:</b>
 
 ```typescript
-export interface FileInfo extends FileMeta 
+export declare interface FileInfo extends FileMeta 
 ```
 <b>Extends:</b> [FileMeta](./file-conver.filemeta.md)
 

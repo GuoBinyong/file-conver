@@ -24,7 +24,7 @@ export type FileContent = string | Buffer;
 export type FileConver = (preConverResult: FileWriteInfo[], fileInfo: FileInfo, config: RequiredFileConverConfig) => ConverResult | Promise<ConverResult>;
 
 // @public
-export function fileConver(config: FileConverConfig): Promise<void>;
+export function fileConver(config: FileConverConfig): Promise<PromiseSettledResult<PromiseSettledResult<void>[]>[]>;
 
 // @public
 export interface FileConverConfig {
@@ -54,7 +54,7 @@ export interface FileMeta extends ParsedPath {
 }
 
 // @public
-export function fileReadWrite(fileMeta: FileMeta, config: RequiredFileConverConfig): Promise<void>;
+export function fileReadWrite(fileMeta: FileMeta, config: RequiredFileConverConfig): Promise<PromiseSettledResult<void>[]>;
 
 // @public
 export type FileWriteInfo = Partial<Omit<FileMeta, "path">> & Pick<FileInfo, "content">;

@@ -9,7 +9,7 @@
 <b>Signature:</b>
 
 ```typescript
-export interface FileConverConfig 
+export declare interface FileConverConfig 
 ```
 
 ## Properties
