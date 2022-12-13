@@ -1,5 +1,6 @@
 
 import { defineConfig } from 'vite'
+import shebang from 'rollup-plugin-preserve-shebang';
 import {getDependencieNames,getBaseNameOfHumpFormat} from "package-tls";
 import pkg from "./package.json" assert {type: "json"};
 import {dirname,relative,parse} from "node:path";
@@ -10,9 +11,11 @@ import dts from 'vite-plugin-dts'
 
 // 手动配置
 const entry = 'src/index.ts';   // 输入（入口）文件
+const binEntrys = ["src/fileconver.ts"];   // 命令行工具的输入（入口）文件列表
 //所需构建的模块格式
 const formats_ExcludeDep = ['es', 'cjs'];  //要排除依赖包的模块格式
 const formats_IncludeDep = [];  //要包含依赖包的模块格式
+const generateDts = true;  // 是否生成 TypeScript 的类型声明文件
 
 // 类型声明文件构建选项
 const dtsOpts = {
@@ -68,12 +71,13 @@ const config = {
              *  + 这些入口之间所共享的 代码块，称为 共享块
              *  + 每个入口文件对应一个单独的 文件块，称为入口块，入口块 中会引入 共享块。当 `input` 是数组 `string []` 类型时，入口块的名字 与入口文字的名字一个，当 `input` 是对象类型 `{ [entryName: string]: string }` 时，入口块的名字 是对应的 `entryName`。
              */
-            entry: [entry,"src/fileconver.ts"],
+            entry: binEntrys.length ? [entry,...binEntrys] : entry,
             formats:formats_ExcludeDep,
         },
         outDir:outDir,
         rollupOptions:{
             external:excludedDep_Exclude,
+            plugins:[shebang()],
             /**
              * String 使用什么导出模式。默认为auto，它根据entry模块导出的内容猜测你的意图：
              * default – 如果你使用 export default ... 仅仅导出一个东西，那适合用这个
@@ -83,7 +87,7 @@ const config = {
             // exports:"auto", 
         }
     },
-    plugins: [dts_Exclude]
+    plugins: getPlugins(dts_Exclude)
 };
 
 
@@ -118,7 +122,7 @@ const config = {
         case "bunch":{
             config.build.lib.formats = [...formats_ExcludeDep,...formats_IncludeDep];
             config.build.rollupOptions.external = excludedDep_Include;
-            config.plugins = [dts_Include];
+            config.plugins = getPlugins(dts_Include);
             break;
         }
         default: {
@@ -128,7 +132,7 @@ const config = {
                 inlineConfig.build.emptyOutDir = false; // 不清空输出目录
                 inlineConfig.build.lib.formats = formats_IncludeDep;
                 inlineConfig.build.rollupOptions.external = excludedDep_Include;
-                inlineConfig.plugins = [dts_Include];
+                inlineConfig.plugins = getPlugins(dts_Include);
                 build(inlineConfig); //单独进行构建
             }
         }
@@ -196,4 +200,15 @@ function buildFiles(options){
    });
    
    return Promise.all(buildProArr);
+}
+
+
+
+/**
+ * 获取插件
+ * @param  plug - 插件
+ * @returns 插件数组
+ */
+function getPlugins(plug){
+    return generateDts ? [plug] : [];
 }

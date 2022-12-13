@@ -3,6 +3,6 @@
   "private": true,
   "dependencies": {
     "@file-conver/convers": "workspace:^1.5.3",
-    "file-conver": "workspace:^3.1.2"
+    "file-conver": "workspace:^3.2.0"
   }
 }
